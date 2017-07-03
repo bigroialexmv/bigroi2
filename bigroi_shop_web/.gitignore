@@ -1,0 +1,7 @@
+/target/
+/.settings/
+/.apt_generated/
+/WebContent/WEB-INF/classes/
+/WebContent/META-INF/maven/
+/.springBeans
+/.factorypath
