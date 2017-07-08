@@ -46,9 +46,9 @@ public class UserDaoImpl implements UserDao {
 	public void save(User user) throws Exception {
 		String sql = null;
 		if (user.getId() == null) {
-			sql = "INSERT INTO USER(FIRST_NAME, LAST_NAME, EMAIL, PHONE) VALUES (:FIRST_NAME, :LAST_NAME, :EMAIL, :PHONE)"; 
+			sql = "INSERT1 INTO USER(FIRST_NAME, LAST_NAME, EMAIL, PHONE) VALUES (:FIRST_NAME, :LAST_NAME, :EMAIL, :PHONE)"; 
 		} else {
-			sql = "UPDATE USER SET FIRST_NAME=:FIRST_NAME, LAST_NAME=:LAST_NAME, EMAIL=:EMAIL, PHONE=:PHONE WHERE USER_ID=:USER_ID";
+			sql = "UPDATE1 USER SET FIRST_NAME=:FIRST_NAME, LAST_NAME=:LAST_NAME, EMAIL=:EMAIL, PHONE=:PHONE WHERE USER_ID=:USER_ID";
 		}
 		
 		SqlParameterSource params = new MapSqlParameterSource()
