@@ -48,13 +48,16 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void save(User user) throws Exception {
-		logger.info("saving user");
-		String sql = null;
-		if (user.getId() == null) {
-			sql = "INSERT INTO USER(FIRST_NAME, LAST_NAME, EMAIL, PHONE) VALUES (:FIRST_NAME, :LAST_NAME, :EMAIL, :PHONE)"; 
-		} else {
-			sql = "UPDATE USER SET FIRST_NAME=:FIRST_NAME, LAST_NAME=:LAST_NAME, EMAIL=:EMAIL, PHONE=:PHONE WHERE USER_ID=:USER_ID";
+		if ( logger.isDebugEnabled() ) {
+			logger.debug("saving user " + user);
 		}
+		
+		String sql = null;
+		if (user.getId() == null) {			
+			sql = "INSERT INTO USER(FIRST_NAME, LAST_NAME, EMAIL, PHONE) VALUES (:FIRST_NAME, :LAST_NAME, :EMAIL, :PHONE)"; 
+		} else {			
+			sql = "UPDATE USER SET FIRST_NAME=:FIRST_NAME, LAST_NAME=:LAST_NAME, EMAIL=:EMAIL, PHONE=:PHONE WHERE USER_ID=:USER_ID";
+		}		
 		
 		SqlParameterSource params = new MapSqlParameterSource()
 			.addValue("FIRST_NAME", user.getFirstName())
@@ -63,7 +66,8 @@ public class UserDaoImpl implements UserDao {
 			.addValue("PHONE", user.getPhone())
 			.addValue("USER_ID", user.getId());
 		
-		npJdbcTemplate.update(sql, params);
+		npJdbcTemplate.update(sql, params);		
+		
 	}
 
 	@Override
