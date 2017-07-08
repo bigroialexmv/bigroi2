@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
  
-<Configuration monitorInterval="60" status="TRACE">
+<Configuration monitorInterval="60" status="ERROR">
     <Properties>
         <Property name="log-path">C:/temp/bigroi/logs</Property>
     </Properties>
@@ -21,10 +21,10 @@
         </File>        
     </Appenders>
     <Loggers>
-        <Logger name="org.springframework" level="info" additivity="false">
+        <Logger name="org.springframework" level="error" additivity="false">
             <AppenderRef ref="Console-Appender"/>
         </Logger>
-        <Logger name="com.bigroi" level="info" additivity="false">
+        <Logger name="com.bigroi" level="debug" additivity="false">
             <AppenderRef ref="App-File-Appender"/>
             <AppenderRef ref="Console-Appender"/>
          </Logger>

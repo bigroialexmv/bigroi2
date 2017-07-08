@@ -7,6 +7,8 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -20,6 +22,8 @@ import com.bigroi.shop.model.User;
  *
  */
 public class UserDaoImpl implements UserDao {
+	
+	private Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
 	
 	protected final class UserRowMapper implements RowMapper<User> {
 		public User mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -44,11 +48,12 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public void save(User user) throws Exception {
+		logger.info("saving user");
 		String sql = null;
 		if (user.getId() == null) {
-			sql = "INSERT1 INTO USER(FIRST_NAME, LAST_NAME, EMAIL, PHONE) VALUES (:FIRST_NAME, :LAST_NAME, :EMAIL, :PHONE)"; 
+			sql = "INSERT INTO USER(FIRST_NAME, LAST_NAME, EMAIL, PHONE) VALUES (:FIRST_NAME, :LAST_NAME, :EMAIL, :PHONE)"; 
 		} else {
-			sql = "UPDATE1 USER SET FIRST_NAME=:FIRST_NAME, LAST_NAME=:LAST_NAME, EMAIL=:EMAIL, PHONE=:PHONE WHERE USER_ID=:USER_ID";
+			sql = "UPDATE USER SET FIRST_NAME=:FIRST_NAME, LAST_NAME=:LAST_NAME, EMAIL=:EMAIL, PHONE=:PHONE WHERE USER_ID=:USER_ID";
 		}
 		
 		SqlParameterSource params = new MapSqlParameterSource()

@@ -7,7 +7,7 @@ import com.bigroi.shop.dao.impl.UserDaoImpl;
 
 public class LoggingTestApp {
 	
-	private static Logger logger = LoggerFactory.getLogger(UserDaoImpl.class);
+	private static Logger logger = LoggerFactory.getLogger(LoggingTestApp.class);
 	
 	public static void main(String[] args) {
 		logger.debug("debug message");
