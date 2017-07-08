@@ -3,11 +3,9 @@ package com.bigroi.shop.dao.test.app;
 import java.io.Closeable;
 import java.sql.Connection;
 import java.util.List;
-import java.util.Properties;
 
 import javax.sql.DataSource;
 
-import org.springframework.beans.factory.config.PropertyPlaceholderConfigurer;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import com.bigroi.shop.dao.UserDao;

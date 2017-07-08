@@ -7,7 +7,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -70,7 +69,7 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> findAll() throws Exception {
+	public List<User> findAll() throws Exception {		
 		String sql = "SELECT U.USER_ID, U.FIRST_NAME, U.LAST_NAME, U.EMAIL, U.CRTD_TMS, U.UPDT_TMS, U.PHONE FROM USER AS U ";
 		return npJdbcTemplate.query(sql, new UserRowMapper());		
 	}
