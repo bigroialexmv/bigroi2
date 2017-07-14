@@ -4,7 +4,6 @@
 package com.bigroi.shop.model;
 
 import java.util.Date;
-import java.util.List;
 
 /**
  * @author Alexander Medvedev
@@ -14,9 +13,9 @@ public class PurchaseOrder {
 
     private Integer id;
 	
-	private User user;
+	private Integer userId;
 	
-	private UserAddress deliveryAddress;
+	private Integer deliveryAddressId;
 	
 	private Date deliveryDate;
 	
@@ -28,46 +27,57 @@ public class PurchaseOrder {
 	
 	private Date updated;
 	
-	private List<Product> products;
+	private Product product;
 	
 	private OrderStatus orderStatus;
 	
 	private String addInfo;
 	
+	private int status;
+	
+	private int productQuantity;
+	
+	private int discount;
+	
 	public PurchaseOrder( ){
 		
 	}
 	
-    public PurchaseOrder(User user, UserAddress deliveryAddress, Date deliveryDate, List<Product> products) {
-		this.setUser(user);
-		this.setDeliveryAddress(deliveryAddress);
+    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date created, Date deliveryDate) {
+		this.setUserId(userId);
+		this.setDeliveryAddressId(deliveryAddressId);
+		this.setCreated(created);
 		this.setDeliveryDate(deliveryDate);
-		this.setProducts(products);
+		
 	}
     
-    public PurchaseOrder(Integer id, User user, UserAddress deliveryAddress, Date deliveryDate, List<Product> products) {
+    public PurchaseOrder(Integer id, Integer userId, Integer deliveryAddressId, Date created, Date deliveryDate) {
 		this.setId(id);
-    	this.setUser(user);
-		this.setDeliveryAddress(deliveryAddress);
+    	this.setUserId(userId);
+		this.setDeliveryAddressId(deliveryAddressId);
+		this.setCreated(created);
 		this.setDeliveryDate(deliveryDate);
-		this.setProducts(products);
+		
 	}
     
-    public PurchaseOrder(User user, UserAddress deliveryAddress, Date deliveryDate, List<Product> products, String addInfo) {
-		this.setUser(user);
-		this.setDeliveryAddress(deliveryAddress);
+    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date created, Date deliveryDate, String addInfo) {
+		this.setUserId(userId);
+		this.setDeliveryAddressId(deliveryAddressId);
+		this.setCreated(created);
 		this.setDeliveryDate(deliveryDate);
-		this.setProducts(products);
+		
 		this.setAddInfo(addInfo);
 	}
     
-    public PurchaseOrder(Integer id, User user, UserAddress deliveryAddress, Date deliveryDate, List<Product> products, String addInfo) {
+    public PurchaseOrder(Integer id, Integer userId, Integer deliveryAddressId, Date created, Date deliveryDate, String addInfo, int status) {
 		this.setId(id);
-    	this.setUser(user);
-		this.setDeliveryAddress(deliveryAddress);
+    	this.setUserId(userId);
+		this.setDeliveryAddressId(deliveryAddressId);
+		this.setCreated(created);
 		this.setDeliveryDate(deliveryDate);
-		this.setProducts(products);
+		
 		this.setAddInfo(addInfo);
+		this.setStatus(status);
 	}
 
 	public Integer getId() {
@@ -78,20 +88,20 @@ public class PurchaseOrder {
 		this.id = id;
 	}
 
-	public User getUser() {
-		return user;
+	public Integer getUserId() {
+		return userId;
 	}
 
-	public void setUser(User user) {
-		this.user = user;
+	public void setUserId(Integer userId) {
+		this.userId = userId;
 	}
 
-	public UserAddress getDeliveryAddress() {
-		return deliveryAddress;
+	public Integer getDeliveryAddressId() {
+		return deliveryAddressId;
 	}
 
-	public void setDeliveryAddress(UserAddress deliveryAddress) {
-		this.deliveryAddress = deliveryAddress;
+	public void setDeliveryAddressId(Integer deliveryAddressId) {
+		this.deliveryAddressId = deliveryAddressId;
 	}
 
 	public Date getDeliveryDate() {
@@ -134,20 +144,20 @@ public class PurchaseOrder {
 		this.updated = updated;
 	}
 
-	public List<Product> getProducts() {
-		return products;
+	public Product getProduct() {
+		return product;
 	}
 
-	public void setProducts(List<Product> products) {
-		this.products = products;
+	public void setProduct(Product product) {
+		this.product = product;
 	}
 
 	public OrderStatus getOrderStatus() {
 		return orderStatus;
 	}
 
-	public void setOrderStatus(OrderStatus orderStatus) {
-		this.orderStatus = orderStatus;
+	public void setOrderStatus(int status) {
+		orderStatus = OrderStatus.findByStatus(status);
 	}
 
 	public String getAddInfo() {
@@ -160,8 +170,32 @@ public class PurchaseOrder {
     
 	@Override
 	public String toString() {
-		return String.format("{id: %s, User: %s, deliveryAddress: %s, deliveryDate: %s, products: %s, addInfo: %s}", 
-				getId(), getUser(), getDeliveryAddress(), getDeliveryDate(), getProducts(), getAddInfo());
+		return String.format("{id: %s, userId: %s, deliveryAddress: %s, deliveryDate: %s, product: %s, addInfo: %s}", 
+				getId(), getUserId(), getDeliveryAddressId(), getDeliveryDate(), getProduct(), getAddInfo());
+	}
+
+	public int getProductQuantity() {
+		return productQuantity;
+	}
+
+	public void setProductQuantity(int productQuantity) {
+		this.productQuantity = productQuantity;
+	}
+
+	public int getDiscount() {
+		return discount;
+	}
+
+	public void setDiscount(int discount) {
+		this.discount = discount;
+	}
+
+	public int getStatus() {
+		return status;
+	}
+
+	public void setStatus(int status) {
+		this.status = status;
 	}
 	
 	
