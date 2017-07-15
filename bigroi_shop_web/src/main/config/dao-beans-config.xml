@@ -23,7 +23,8 @@
 		<property name="npJdbcTemplate" ref="npJdbcTemplate"/>
 	</bean>
 	<bean id="productDao" class="com.bigroi.shop.dao.impl.ProductDaoImpl">
-	<property name="npJdcTemplate" ref="npJdbcTemplate"/>
+	<property name="npJdbcTemplate" ref="npJdbcTemplate"/>
 	</bean>
-
+    <bean id = "userAddressDao" class = "com.bigroi.shop.dao.impl.UserAddressDaoImpl">
+    <property name="npJdbcTemplate" ref="npJdbcTemplate"/></bean>
 </beans>
