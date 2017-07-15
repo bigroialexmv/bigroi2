@@ -4,13 +4,15 @@ import java.math.BigDecimal;
 
 public class Product {
 	
-	private String code;
+	private Integer code;
 	
 	private String name;
 	
 	private BigDecimal price;
 	
 	private String description;
+	
+	private Integer quantity;
 
 	/**
 	 * Creates new product
@@ -18,7 +20,7 @@ public class Product {
 	 * @param name product name
 	 * @param price product price
 	 */
-	public Product(String code, String name, BigDecimal price) {
+	public Product(Integer code, String name, BigDecimal price) {
 		super();
 		if ( code == null ) {
 			throw new IllegalArgumentException("code must not be null");
@@ -29,26 +31,32 @@ public class Product {
 		this.code = code;
 		this.name = name;
 		this.price = price;
+		
 	}
 	
-	public Product(String code, String name, double price, String description) {	
+	public Product(Integer code, String name, double price, String description,Integer quantity) {	
 		this(code, name, new BigDecimal(price) );
 		this.description = description;
+		this.quantity = quantity;
 	}
+
+
 
 	public Product() {
-		// TODO Auto-generated constructor stub
+		
 	}
 
-	public void setCode(String code) {
+
+
+	public void setCode(Integer code) {
 		this.code = code;
 	}
 	
-	public void setCode(Integer code) {
-		this.code = code.toString();
-	}
+	//public void setCode(Integer code) {
+		//this.code = code.toString();
+	
 
-	public String getCode() {
+	public Integer getCode() {
 		return code;
 	}
 
@@ -71,19 +79,27 @@ public class Product {
 		return s;
 	}
 
-	public void setName(String string) {
-		// TODO Auto-generated method stub
+	public void setName( String name) {
+		this.name=name;
 		
 	}
 
-	public void setPrice(BigDecimal bigDecimal) {
-		// TODO Auto-generated method stub
+	public void setPrice(BigDecimal price) {
+		this.price=price;
 		
 	}
 
-	public void setDescription(String string) {
-		// TODO Auto-generated method stub
+	public void setDescription(String description) {
+		this.description=description;
 		
+	}
+
+	public Integer getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(Integer quantity) {
+		this.quantity = quantity;
 	}
 	
 }
