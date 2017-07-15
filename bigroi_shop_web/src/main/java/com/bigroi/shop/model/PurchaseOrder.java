@@ -43,37 +43,37 @@ public class PurchaseOrder {
 		
 	}
 	
-    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date created, Date deliveryDate) {
+    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date deliveryDate) {
 		this.setUserId(userId);
 		this.setDeliveryAddressId(deliveryAddressId);
-		this.setCreated(created);
+		
 		this.setDeliveryDate(deliveryDate);
 		
 	}
     
-    public PurchaseOrder(Integer id, Integer userId, Integer deliveryAddressId, Date created, Date deliveryDate) {
+    public PurchaseOrder(Integer id, Integer userId, Integer deliveryAddressId, Date deliveryDate) {
 		this.setId(id);
     	this.setUserId(userId);
 		this.setDeliveryAddressId(deliveryAddressId);
-		this.setCreated(created);
+		
 		this.setDeliveryDate(deliveryDate);
 		
 	}
     
-    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date created, Date deliveryDate, String addInfo) {
+    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date deliveryDate, String addInfo) {
 		this.setUserId(userId);
 		this.setDeliveryAddressId(deliveryAddressId);
-		this.setCreated(created);
+		;
 		this.setDeliveryDate(deliveryDate);
 		
 		this.setAddInfo(addInfo);
 	}
     
-    public PurchaseOrder(Integer id, Integer userId, Integer deliveryAddressId, Date created, Date deliveryDate, String addInfo, int status) {
+    public PurchaseOrder(Integer id, Integer userId, Integer deliveryAddressId, Date deliveryDate, String addInfo, int status) {
 		this.setId(id);
     	this.setUserId(userId);
 		this.setDeliveryAddressId(deliveryAddressId);
-		this.setCreated(created);
+		
 		this.setDeliveryDate(deliveryDate);
 		
 		this.setAddInfo(addInfo);

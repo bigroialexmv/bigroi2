@@ -6,11 +6,12 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.PurchaseOrderDao;
@@ -40,9 +41,8 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 
 	public void setNpJdbcTemplate(NamedParameterJdbcTemplate npJdbcTemplate) {
 		this.npJdbcTemplate = npJdbcTemplate;
-	}
+	}	
 	
-	@Autowired
 	@Override
 	@Transactional
 	public void save(PurchaseOrder po, Product product) throws Exception {
@@ -50,16 +50,16 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 			logger.debug("saving purchase order " + po);
 		}
 		
-		String sql = null;
-		String anotherSql = null;
+		String purchaseOrdersql = null;
+		String purchaseOrderProductSql = null;
 		if (po.getId() == null) {			
-			sql = "INSERT INTO PURCHASE_ORDER(USER_ID, DLRY_ADDR_ID, DLRY_DATE) "
+			purchaseOrdersql = "INSERT INTO PURCHASE_ORDER(USER_ID, DLRY_ADDR_ID, DLRY_DATE) "
 					+ "VALUES (:USER_ID, :DLRY_ADDR_ID, :DLRY_DATE)";
-			anotherSql = "INSERT INTO PURCHASE_ORDER_PRODUCT(ORDER_ID, PRODUCT_CODE, PRODUCT_QUANTITY, PRODUCT_PRICE, DISCOUNT) "
+			purchaseOrderProductSql = "INSERT INTO PURCHASE_ORDER_PRODUCT(ORDER_ID, PRODUCT_CODE, PRODUCT_QUANTITY, PRODUCT_PRICE, DISCOUNT) "
 					+ "VALUES (:ORDER_ID, :PRODUCT_CODE, :PRODUCT_QUANTITY, :PRODUCT_PRICE, :DISCOUNT)";
 		} else {			
-			sql = "UPDATE PURCHASE_ORDER SET USER_ID=:USER_ID, DLRY_ADDR_ID=:DLRY_ADDR_ID, DLRY_DATE=:DLRY_DATE WHERE ORDER_ID=:ORDER_ID";
-			anotherSql = "UPDATE PURCHASE_ORDER_PRODUCT SET PRODUCT_CODE=:PRODUCT_CODE, PRODUCT_QUANTITY=:PRODUCT_QUANTITY, PRODUCT_PRICE=;PRODUCT_PRICE, DISCOUNT=:DISCOUNT";
+			purchaseOrdersql = "UPDATE PURCHASE_ORDER SET USER_ID=:USER_ID, DLRY_ADDR_ID=:DLRY_ADDR_ID, DLRY_DATE=:DLRY_DATE WHERE ORDER_ID=:ORDER_ID";
+			purchaseOrderProductSql = "UPDATE PURCHASE_ORDER_PRODUCT SET PRODUCT_CODE=:PRODUCT_CODE, PRODUCT_QUANTITY=:PRODUCT_QUANTITY, PRODUCT_PRICE=;PRODUCT_PRICE, DISCOUNT=:DISCOUNT";
 		}		
 		
 		SqlParameterSource params = new MapSqlParameterSource()
@@ -67,7 +67,10 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 			.addValue("DLRY_ADDR_ID", po.getDeliveryAddressId())
 			.addValue("DLRY_DATE", po.getDeliveryDate());
 		
-		npJdbcTemplate.update(sql, params);	
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		npJdbcTemplate.update(purchaseOrdersql, params, keyHolder);
+		Number orderId = keyHolder.getKey();		
+		po.setId(orderId.intValue());
 		
 		SqlParameterSource anotherParams = new MapSqlParameterSource()
 				.addValue("ORDER_ID", po.getId())
@@ -76,7 +79,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 				.addValue("PRODUCT_PRICE", product.getPrice())
 				.addValue("DISCOUNT", po.getDiscount());
 			
-			npJdbcTemplate.update(anotherSql, anotherParams);
+			npJdbcTemplate.update(purchaseOrderProductSql, anotherParams);
 		
 	}
 
@@ -84,9 +87,9 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 
 	@Override
 	public PurchaseOrder findById(Integer id) throws Exception {
-		String sql = "SELECT * FROM PURCHASE_ORDER WHERE ORDER_ID=:ORDER_ID";
+		String sql = "SELECT PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO,PO.STATUS_CD FROM PURCHASE_ORDER WHERE ORDER_ID=:ORDER_ID";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("ORDER_ID", id);
-		return npJdbcTemplate.queryForObject(sql, params, PurchaseOrder.class);
+		return npJdbcTemplate.queryForObject(sql, params, new PurchaseOrderRowMapper());
 	}
 
 	@Override
@@ -99,7 +102,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 
 	@Override
 	public List<PurchaseOrder> findByOrderStatus(Integer status) throws Exception {
-		String sql = "SELECT PO.ORDER_ID, PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO, FROM PURCHASE_ORDER AS PO WHERE STATUS_CD=:STATUS_CD";
+		String sql = "SELECT PO.ORDER_ID, PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO FROM PURCHASE_ORDER AS PO WHERE PO.STATUS_CD=:STATUS_CD";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("STATUS_CD", status);
 		return npJdbcTemplate.query(sql, params, new PurchaseOrderRowMapper());
 	}
@@ -114,7 +117,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	public void deleteById(Integer id) throws Exception {
 		String sql = "DELETE * FROM PURCHASE_ORDER WHERE ORDER_ID=:ORDER_ID";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("ORDER_ID", id);
-		npJdbcTemplate.queryForObject(sql, params, PurchaseOrder.class);
+		npJdbcTemplate.update(sql, params);
 
 	}
 

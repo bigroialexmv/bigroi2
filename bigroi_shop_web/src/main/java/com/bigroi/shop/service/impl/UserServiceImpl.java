@@ -16,7 +16,7 @@ public class UserServiceImpl implements UserService {
 	
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
-//	@Autowired
+	@Autowired
 	private UserDao userDao;
 	
 	private UserAddressDao userAddressDao;
@@ -31,8 +31,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User findUserById(int userId) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return userDao.findById(userId);
 	}
 
 	@Override
@@ -51,7 +50,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public List<User> findAll() throws Exception {
 		logger.debug("find all: " + userDao);
-		return null;
+		return userDao.findAll();
 	}
 
 }
