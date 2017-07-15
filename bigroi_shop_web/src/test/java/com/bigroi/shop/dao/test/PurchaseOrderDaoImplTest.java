@@ -31,7 +31,7 @@ public class PurchaseOrderDaoImplTest {
 	@Rollback(true)
 	public void testSave() {
 		Date dateDelivery = new Date();
-		Product product = new Product ("56","MEIZU M3 Note 16GB Gray", new BigDecimal(320) );
+		Product product = new Product (56,"MEIZU M3 Note 16GB Gray", new BigDecimal(320) );
 		
 		PurchaseOrder po = new PurchaseOrder(20, 4, dateDelivery);
 		try {
