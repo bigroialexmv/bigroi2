@@ -27,8 +27,8 @@ public class UserAddressDaoImplTest {
 	public void testFindByUserId() {
 		
 		try {
-			User user = userAddressDao.findById(2);
-			assertEquals("inconsistent id", 2, user.getId().intValue());
+			User user = userAddressDao.findById(18);
+			assertEquals("inconsistent id", 18, user.getId().intValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -37,8 +37,16 @@ public class UserAddressDaoImplTest {
 	}
 
 	@Test
-	public void testSaveUserAddress() {
-		fail("Not yet implemented");
+	@Transactional
+	@Rollback(true)
+	public void testSave() {
+		User user = new  User("bvz", "Tфамилия", "мыло", "923847091287509");
+		try {
+			userAddressDao.save(user);			
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
 
 	@Test
