@@ -40,9 +40,8 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 
 	public void setNpJdbcTemplate(NamedParameterJdbcTemplate npJdbcTemplate) {
 		this.npJdbcTemplate = npJdbcTemplate;
-	}
+	}	
 	
-	@Autowired
 	@Override
 	@Transactional
 	public void save(PurchaseOrder po, Product product) throws Exception {
