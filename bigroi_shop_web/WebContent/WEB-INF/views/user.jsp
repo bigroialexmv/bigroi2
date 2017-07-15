@@ -4,10 +4,13 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>${title}</title>
 </head>
 <body>
-	<h1>Users</h1>
-	${message1}
+	<h1>${title}</h1>
+	<br/>
+		First name: ${user.firstName}
+	<br/>
+		Last name: ${user.lastName}
 </body>
 </html>
