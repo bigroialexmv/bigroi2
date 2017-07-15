@@ -13,7 +13,7 @@ import com.bigroi.shop.model.Product;
  */
 public interface ProductDao {
 	
-	public void save(Product product) throws Exception;
+	public void save (Product product) throws Exception;
 
 	public Product findById(int productId) throws Exception;
 	
