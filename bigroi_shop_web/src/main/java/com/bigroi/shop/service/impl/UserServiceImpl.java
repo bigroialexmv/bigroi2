@@ -2,6 +2,9 @@ package com.bigroi.shop.service.impl;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.UserAddressDao;
@@ -11,6 +14,9 @@ import com.bigroi.shop.service.UserService;
 
 public class UserServiceImpl implements UserService {
 	
+	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
+	
+//	@Autowired
 	private UserDao userDao;
 	
 	private UserAddressDao userAddressDao;
@@ -44,7 +50,7 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public List<User> findAll() throws Exception {
-		// TODO Auto-generated method stub
+		logger.debug("find all: " + userDao);
 		return null;
 	}
 
