@@ -8,18 +8,22 @@
 </head>
 <body>
 	<h1>${title}</h1>
-	<br/>
-		First name: ${user.firstName}
-	<br/>
-		Last name: ${user.lastName}
-	<br/>
-		Email: ${user.email}
-	<br/>
-		Phone: ${user.phone}
-	<br/>
-	<form action="user/edit">
+	<form action="save" method="post">
+		<br/>
+			First name: 
+			<input type="text" name="firstName" value="${user.firstName}">
+		<br/>
+			Last name:
+			<input type="text" name="lastName" value="${user.lastName}">
+		<br/>
+			Email: 
+			<input type="text" name="email" value="${user.email}">
+		<br/>
+			Phone:
+			<input type="text" name="phone" value="${user.phone}">
+		<br/>
 		<input type="hidden" name="userId" value="${user.id}">
-		<input type="submit" value="Edit"/>
+		<input type="submit" value="Save"/>
 	</form>
 </body>
 </html>

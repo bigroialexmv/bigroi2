@@ -16,7 +16,6 @@ public class UserServiceImpl implements UserService {
 	
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	
-	@Autowired
 	private UserDao userDao;
 	
 	private UserAddressDao userAddressDao;

@@ -7,6 +7,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,11 +34,26 @@ public class UsersController {
 	
 	@RequestMapping(path="/user", method = RequestMethod.GET)
 	public String showUser(@RequestParam int userId, ModelMap model) throws Exception {
-		logger.debug("show users: " + userService.findAll());		
 		User user = userService.findUserById(userId);
 		model.addAttribute("title", "User details");
 		model.addAttribute("user", user);
 	    return "user";
+	}
+	
+	@RequestMapping(path="/user/edit", method = RequestMethod.GET)
+	public String editUser(@RequestParam int userId, ModelMap model) throws Exception {
+		User user = userService.findUserById(userId);
+		model.addAttribute("title", "Edit user details");
+		model.addAttribute("user", user);
+	    return "userEdit";
+	}
+	
+	@RequestMapping(path="/user/save", method = RequestMethod.POST)
+	public String saveUser(@RequestBody User user, ModelMap model) throws Exception {
+//		userService.save(user);
+//		model.addAttribute("title", "Edit user details");
+//		model.addAttribute("user", user);
+	    return "userEdit";
 	}
 	
 }
