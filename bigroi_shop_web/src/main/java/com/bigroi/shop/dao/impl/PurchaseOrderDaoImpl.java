@@ -11,6 +11,8 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.PurchaseOrderDao;
@@ -66,7 +68,10 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 			.addValue("DLRY_ADDR_ID", po.getDeliveryAddressId())
 			.addValue("DLRY_DATE", po.getDeliveryDate());
 		
-		npJdbcTemplate.update(sql, params);	
+		KeyHolder keyHolder = new GeneratedKeyHolder();
+		npJdbcTemplate.update(sql, params, keyHolder);
+		Number orderId = keyHolder.getKey();		
+		po.setId(orderId.intValue());
 		
 		SqlParameterSource anotherParams = new MapSqlParameterSource()
 				.addValue("ORDER_ID", po.getId())

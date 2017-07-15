@@ -17,9 +17,7 @@ import com.bigroi.shop.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath*:/dao-config.xml")
-//@Transactional
-//@Rollback(true)
-public class UserDaoTest {
+public class UserDaoImplTest {
 	
 	@Autowired
 	private UserDao userDao;
