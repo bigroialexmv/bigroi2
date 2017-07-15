@@ -106,13 +106,15 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 
 	@Override
 	public int countAll() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		String sql = "SELECT COUNT(*) FROM PURCHASE_ORDER AS PO ";
+		return npJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), Integer.class);
 	}
 
 	@Override
 	public void deleteById(Integer id) throws Exception {
-		// TODO Auto-generated method stub
+		String sql = "DELETE * FROM PURCHASE_ORDER WHERE ORDER_ID=:ORDER_ID";
+		SqlParameterSource params = new MapSqlParameterSource().addValue("ORDER_ID", id);
+		npJdbcTemplate.queryForObject(sql, params, PurchaseOrder.class);
 
 	}
 
