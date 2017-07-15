@@ -36,6 +36,10 @@ public class Product {
 		this.description = description;
 	}
 
+	public Product() {
+		// TODO Auto-generated constructor stub
+	}
+
 	public void setCode(String code) {
 		this.code = code;
 	}
@@ -65,6 +69,21 @@ public class Product {
 	public String toString() {
 		String s = String.format("Product {name=%s, code=%s, price=%s}", name, code, price);
 		return s;
+	}
+
+	public void setName(String string) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setPrice(BigDecimal bigDecimal) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void setDescription(String string) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

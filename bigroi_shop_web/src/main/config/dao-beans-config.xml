@@ -22,5 +22,8 @@
 	<bean id="userDao" class="com.bigroi.shop.dao.impl.UserDaoImpl">
 		<property name="npJdbcTemplate" ref="npJdbcTemplate"/>
 	</bean>
+	<bean id="productDao" class="com.bigroi.shop.dao.impl.ProductDaoImpl">
+	<property name="npJdcTemplate" ref="npJdbcTemplate"/>
+	</bean>
 
 </beans>
