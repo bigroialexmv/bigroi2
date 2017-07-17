@@ -26,10 +26,8 @@ public class ProductDaoImpl implements ProductDao {
 			product.setPrice(rs2.getBigDecimal("PRICE"));
 			product.setDescription(rs2.getString("DESCRIPTION"));
 			product.setQuantity(rs2.getInt("QUANTITY"));
-			return product;
-			
+			return product;		
 		}
-
 	}
 	
 	//@Autowired
@@ -39,9 +37,9 @@ public class ProductDaoImpl implements ProductDao {
 		this.npJdbcTemplate = npJdbcTemplate;
 	}
 	@Override
-	public Product findById(int productId) throws Exception {
-		String sql = "SELECT CODE, NAME, PRICE, DESCRIPTION, QUANTITY";
-		SqlParameterSource params = new MapSqlParameterSource().addValue("CODE",productId);
+	public Product findById(int product) throws Exception {
+		String sql = "SELECT P.CODE, P.NAME, P.PRICE, P.DESCRIPTION, P.QUANTITY FROM PRODUCT AS P WHERE CODE=:CODE";
+		SqlParameterSource params = new MapSqlParameterSource().addValue("CODE",product);
 		return npJdbcTemplate.queryForObject(sql, params, new ProductRowMapper());
 	}
 
@@ -60,7 +58,7 @@ public class ProductDaoImpl implements ProductDao {
 	public void save(Product product) throws Exception {
 		String sql = null;
 		if (product.getCode()== null){
-			sql = "INSERT INTO PRODUCT(CODE, NAME, PRICE, DESCRIPTION, QUANTITY) VALUE (:CODE, :NAME, :PRICE, :DESCRIPTION, ;QUANTITY)";
+			sql = "INSERT INTO PRODUCT(CODE, NAME, PRICE, DESCRIPTION, QUANTITY) VALUE (:CODE, :NAME, :PRICE, :DESCRIPTION, :QUANTITY)";
 		}else{
 			sql ="UPDATE PRODUCT SET  NAME=:NAME, PRICE=:PRICE, DESCRIPTION=:DESCRIPTION, QUANTITY=:QUANTITY WHERE CODE=:CODE" ;
 		}

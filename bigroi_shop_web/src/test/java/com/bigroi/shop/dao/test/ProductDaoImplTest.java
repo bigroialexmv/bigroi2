@@ -2,6 +2,7 @@ package com.bigroi.shop.dao.test;
 
 import static org.junit.Assert.*;
 
+import java.util.List;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -30,8 +31,8 @@ public class ProductDaoImplTest {
 	@Test
 	public void testFindById() {
 		try {
-			Product product = productDao.findById(20);
-			assertEquals(43,product.getCode().intValue());
+			Product product = productDao.findById(41);
+			assertEquals(41,product.getCode().intValue());
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -40,14 +41,28 @@ public class ProductDaoImplTest {
 
 	@Test
 	public void testFindAll() {
-		fail("Not yet implemented");
+		try {
+			List<Product> products = productDao.findAll();
+			for(Product product : products) {
+				System.out.println(product);
+			}
+		} catch (Exception e) {			
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
 
 	@Test
 	public void testCountAll() {
-		fail("Not yet implemented");
+		try {
+			int count = productDao.countAll();
+			System.out.println("Product count: " + count);
+		} catch (Exception e) {
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
-
+	
 	@Test
 	@Transactional
 	@Rollback(true)
