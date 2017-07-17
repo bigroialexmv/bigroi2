@@ -14,7 +14,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.ProductDao;
 import com.bigroi.shop.model.Product;
-import com.bigroi.shop.model.User;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath*:/dao-config.xml")
@@ -33,24 +32,14 @@ public class ProductDaoImplTest {
 		try {
 			Product product = productDao.findById(41);
 			assertEquals(41,product.getCode().intValue());
+			System.out.println(product);
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
 		}
 	}
 
-	@Test
-	public void testFindAll() {
-		try {
-			List<Product> products = productDao.findAll();
-			for(Product product : products) {
-				System.out.println(product);
-			}
-		} catch (Exception e) {			
-			e.printStackTrace();
-			fail(e.getMessage());
-		}
-	}
+	
 
 	@Test
 	public void testCountAll() {
@@ -76,6 +65,18 @@ public class ProductDaoImplTest {
 			fail(e.getMessage());
 		}
 		
+	}
+	@Test
+	public void testFindAll() {
+		try {
+			List<Product> products = productDao.findAll();
+			for(Product product : products) {
+				System.out.println(product);
+			}
+		} catch (Exception e) {			
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
 	}
 
 }

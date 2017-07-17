@@ -37,9 +37,9 @@ public class ProductDaoImpl implements ProductDao {
 		this.npJdbcTemplate = npJdbcTemplate;
 	}
 	@Override
-	public Product findById(int product) throws Exception {
-		String sql = "SELECT P.CODE, P.NAME, P.PRICE, P.DESCRIPTION, P.QUANTITY FROM PRODUCT AS P WHERE CODE=:CODE";
-		SqlParameterSource params = new MapSqlParameterSource().addValue("CODE",product);
+	public Product findById(int code) throws Exception {
+		String sql = "SELECT CODE, NAME, PRICE, DESCRIPTION, QUANTITY FROM PRODUCT  WHERE CODE=:CODE";
+		SqlParameterSource params = new MapSqlParameterSource().addValue("CODE",code);
 		return npJdbcTemplate.queryForObject(sql, params, new ProductRowMapper());
 	}
 
@@ -51,7 +51,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public int countAll() throws Exception {
-		String sql = "SELECT  COUNT(*) FROM PRODUCT AS P";
+		String sql = "SELECT  COUNT(*) FROM PRODUCT ";
 		return npJdbcTemplate.queryForObject(sql, new  MapSqlParameterSource(), Integer.class);
 	}
 	@Override
