@@ -56,7 +56,7 @@ public class UsersController {
 	@RequestMapping(path="/user/edit", method = RequestMethod.GET)
 	public String editUser(@RequestParam int userId, ModelMap model) throws Exception {
 		User user = userService.findUserById(userId);
-		model.addAttribute("title", "Edit user details");
+		model.addAttribute("title", "User details");
 		model.addAttribute("user", user);
 	    return "userEdit";
 	}
