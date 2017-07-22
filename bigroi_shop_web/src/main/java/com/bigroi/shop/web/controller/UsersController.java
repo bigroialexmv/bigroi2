@@ -7,7 +7,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -33,7 +32,7 @@ public class UsersController {
 	}
 	
 	@RequestMapping(path="/user", method = RequestMethod.GET)
-	public String showUser(@RequestParam int userId, ModelMap model) throws Exception {
+	public String showUser(@RequestParam("userId") int userId, ModelMap model) throws Exception {
 		User user = userService.findUserById(userId);
 		model.addAttribute("title", "User details");
 		model.addAttribute("user", user);
@@ -51,10 +50,8 @@ public class UsersController {
 	@RequestMapping(path="/user/save", method = RequestMethod.POST)
 	public String saveUser(User user) throws Exception {
 		logger.debug("Saving user:" + user);
-//		userService.save(user);
-//		model.addAttribute("title", "Edit user details");
-//		model.addAttribute("user", user);
-	    return "userEdit";
+		userService.save(user);
+	    return "redirect:/user?userId=" + user.getId();
 	}
 	
 }

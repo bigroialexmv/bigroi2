@@ -37,7 +37,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void save(User user) throws Exception {
 		userDao.save( user );
-		userAddressDao.save( user.getAdresses() );		
+		//userAddressDao.save( user.getAdresses() );		
 	}
 
 	@Override
