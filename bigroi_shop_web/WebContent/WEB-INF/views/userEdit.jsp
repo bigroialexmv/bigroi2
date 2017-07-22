@@ -8,7 +8,7 @@
 </head>
 <body>
 	<h1>${title}</h1>
-	<form action="save" method="post">
+	<form action="save" method="POST">
 		<br/>
 			First name: 
 			<input type="text" name="firstName" value="${user.firstName}">
@@ -22,7 +22,7 @@
 			Phone:
 			<input type="text" name="phone" value="${user.phone}">
 		<br/>
-		<input type="hidden" name="userId" value="${user.id}">
+		<input type="hidden" name="id" value="${user.id}">
 		<input type="submit" value="Save"/>
 	</form>
 </body>

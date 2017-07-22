@@ -49,7 +49,8 @@ public class UsersController {
 	}
 	
 	@RequestMapping(path="/user/save", method = RequestMethod.POST)
-	public String saveUser(@RequestBody User user, ModelMap model) throws Exception {
+	public String saveUser(User user) throws Exception {
+		logger.debug("Saving user:" + user);
 //		userService.save(user);
 //		model.addAttribute("title", "Edit user details");
 //		model.addAttribute("user", user);
