@@ -6,12 +6,35 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 	<title>${title}</title>
+	<style type="text/css">
+		td { background-color:#ffff00; }
+  		td:hover { background-color:#000000; }
+	</style>
 </head>
 <body>
 	<h1>${title}</h1>
+	<table align="center" width="100%">
+	<tbody>		
 	<c:forEach var="u" items="${users}">
-		<br/>
-		<a href="user?userId=${u.id}">${u.firstName} ${u.lastName}</a>
-	</c:forEach>	
+		<tr>
+			<td style="text-align: right;">
+				<a href="user?userId=${u.id}">#${u.id}</a>
+			</td>
+			<td>
+				${u.firstName}
+			</td>
+			<td>
+			 	${u.lastName}
+			</td>
+			<td>
+			 	${u.email}
+			</td>
+			<td>
+			 	${u.phone}
+			</td>
+		</tr>
+	</c:forEach>		
+	</tbody>
+	</table>	
 </body>
 </html>
