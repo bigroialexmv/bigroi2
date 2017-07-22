@@ -3,16 +3,22 @@ package com.bigroi.shop.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.validation.constraints.Size;
+
 public class User {
 	
 	private Integer id;
 	
+	@Size(min=1, max=10) 
 	private String firstName;
 	
+	@Size(min=1, max=100) 
 	private String lastName;
 	
+	@Size(min=1, max=250) 
 	private String email;
 	
+	@Size(min=1, max=40) 
 	private String phone;
 	
 	private Date created;
