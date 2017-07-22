@@ -1,12 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <data-sources>
-	<data-source id="mysql5-15cc0814622-6f449607f7da1df8" provider="mysql" driver="mysql5" name="MySQL - bshop" save-password="true" show-system-objects="true" read-only="false">
-		<connection host="vps424546.ovh.net" port="3306" server="" database="bshop" url="jdbc:mysql://vps424546.ovh.net:3306/bshop" user="bteam" password="MTADIUx8FURWRlNod/c=" home="C:\Program Files (x86)\MySQL\Connector NET 6.6.5" type="dev">
-			<network-handler type="CONFIG" id="mysql_ssl" enabled="false" save-password="false">
-				<property name="ssl.public.key.retrieve" value="false"/>
-				<property name="ssl.verify.server" value="true"/>
-				<property name="ssl.require" value="false"/>
-			</network-handler>
+	<data-source id="mysql5-15d68990142-1d3d09407fc9b36f" provider="mysql" driver="mysql5" name="MySQL - bshop" save-password="true" show-system-objects="true" read-only="false">
+		<connection host="195.181.241.92" port="3306" server="" database="bshop" url="jdbc:mysql://195.181.241.92:3306/bshop" user="root" password="GzsKNUoSHAUOO2bf" type="dev">
+			<property name="connectTimeout" value="20000"/>
 			<network-handler type="PROXY" id="socks_proxy" enabled="false" save-password="false">
 				<property name="socks-port" value="1080"/>
 			</network-handler>
@@ -14,6 +10,11 @@
 				<property name="sshConnectTimeout" value="10000"/>
 				<property name="port" value="22"/>
 				<property name="authType" value="PASSWORD"/>
+			</network-handler>
+			<network-handler type="CONFIG" id="mysql_ssl" enabled="false" save-password="false">
+				<property name="ssl.public.key.retrieve" value="false"/>
+				<property name="ssl.verify.server" value="true"/>
+				<property name="ssl.require" value="false"/>
 			</network-handler>
 		</connection>
 	</data-source>
