@@ -22,4 +22,6 @@
 
 </head>
 <body>
-	<h1 style="padding-left: 10%;">${title}</h1>
+	<div class="page-header">
+  		<h1>${title}</h1>
+	</div>

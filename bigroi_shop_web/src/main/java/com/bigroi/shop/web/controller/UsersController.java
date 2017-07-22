@@ -2,23 +2,21 @@ package com.bigroi.shop.web.controller;
 
 import java.util.List;
 
-import javax.validation.Valid;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.ObjectError;
 import org.springframework.validation.Validator;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bigroi.shop.helpers.LogHelper;
 import com.bigroi.shop.model.User;
 import com.bigroi.shop.model.validation.UserValidator;
 import com.bigroi.shop.service.UserService;
@@ -64,15 +62,11 @@ public class UsersController {
 	}
 	
 	@RequestMapping(path="/user/save", method = RequestMethod.POST)
-	public String saveUser(@Valid User user, BindingResult bindingResult) throws Exception {
-		if (logger.isDebugEnabled()) {
-			logger.debug("Saving user:" + user);
-			logger.debug("User has errors: " + bindingResult.hasErrors());
-			for(ObjectError error : bindingResult.getAllErrors()) {
-				logger.debug("User validation error: " + error.getCode() + ", " + error.getDefaultMessage());
-			}
-		}
+	public String saveUser(@Validated User user, BindingResult bindingResult, ModelMap model) throws Exception {
+		logger.debug("Saving user:" + user);
 		if (bindingResult.hasErrors()) {
+			LogHelper.logBindingResults(logger, bindingResult);
+			model.addAttribute("title", "User details");
 			return "userEdit";
 		}
 		userService.save(user);

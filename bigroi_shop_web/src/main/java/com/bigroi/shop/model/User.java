@@ -5,6 +5,8 @@ import java.util.List;
 
 import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.NotEmpty;
+
 public class User {
 	
 	private Integer id;
@@ -18,6 +20,7 @@ public class User {
 	@Size(min=1, max=250) 
 	private String email;
 	
+	@NotEmpty
 	@Size(min=1, max=40) 
 	private String phone;
 	
