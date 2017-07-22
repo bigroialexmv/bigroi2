@@ -1,29 +1,23 @@
-<%@ page language="java" contentType="text/html; charset=ISO-8859-1"
-    pageEncoding="ISO-8859-1"%>
-<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
-<html>
-<head>
-<meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>${title}</title>
-</head>
-<body>
-	<h1>${title}</h1>
-	<form action="save" method="POST">
-		<br/>
-			First name: 
-			<input type="text" name="firstName" value="${user.firstName}">
-		<br/>
-			Last name:
-			<input type="text" name="lastName" value="${user.lastName}">
-		<br/>
-			Email: 
-			<input type="text" name="email" value="${user.email}">
-		<br/>
-			Phone:
-			<input type="text" name="phone" value="${user.phone}">
-		<br/>
+<jsp:include page="../includes/header.jsp"/>
+	<form action="save" method="POST" style="padding-left: 10%;">
+		<div class="form-group" style="width: 60%;">
+			<label for="firstName">First name:</label>
+			<input id="firstName" type="text" name="firstName" value="${user.firstName}" class="form-control">
+		</div>
+		<div class="form-group" style="width: 60%;">
+			<label for="firstName">Last name:</label>
+			<input type="text" name="lastName" value="${user.lastName}" class="form-control">
+		</div>
+		<div class="form-group" style="width: 60%;">
+			<label for="firstName">Email:</label>
+			<input type="text" name="email" value="${user.email}" class="form-control">
+			</div>
+		<div class="form-group" style="width: 60%;">
+			<label for="firstName">Phone:</label>
+			<input type="text" name="phone" value="${user.phone}" class="form-control">
+		</div>
+		
 		<input type="hidden" name="id" value="${user.id}">
-		<input type="submit" value="Save"/>
+		<input type="submit" value="Save" class="btn btn-primary"/>
 	</form>
-</body>
-</html>
+<jsp:include page="../includes/footer.jsp"/>
