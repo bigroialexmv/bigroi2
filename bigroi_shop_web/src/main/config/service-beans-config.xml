@@ -24,5 +24,8 @@
 	<bean id="userService" class="com.bigroi.shop.service.impl.UserServiceImpl">
 		<property name="userDao" ref="userDao"/>		
 	</bean>
+	<bean id="productService" class="com.bigroi.shop.service.impl.ProductServiceImpl">
+		<property name="productDao" ref="productDao"/>		
+	</bean>
 
 </beans>

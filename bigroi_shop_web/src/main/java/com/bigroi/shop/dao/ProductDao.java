@@ -15,7 +15,7 @@ public interface ProductDao {
 	
 	public void save (Product product) throws Exception;
 
-	public Product findById(int productId) throws Exception;
+	public Product findById(int code) throws Exception;
 	
 	public List<Product> findAll() throws Exception;
 	
