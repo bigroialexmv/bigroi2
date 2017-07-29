@@ -23,8 +23,7 @@ public class ProductDaoImpl implements ProductDao {
 			product.setCode(rs2.getInt("CODE"));
 			product.setName(rs2.getString("NAME"));
 			product.setPrice(rs2.getBigDecimal("PRICE"));
-			product.setDescription(rs2.getString("DESCRIPTION"));
-			System.out.println(rs2.getString("DESCRIPTION"));
+			product.setDescription(rs2.getString("DESCRIPTION"));			
 			product.setQuantity(rs2.getInt("QUANTITY"));
 			return product;		
 		}

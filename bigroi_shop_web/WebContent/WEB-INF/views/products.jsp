@@ -1,4 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://www.springframework.org/tags" prefix="s"%>
 <jsp:include page="../includes/header.jsp"/>
 	<table class="table table-striped table-hover">
 	<thead>
@@ -8,6 +9,7 @@
 			<th>Price</th>
 			<th>Description</th>
 			<th>Quantity</th>
+			<th></th>
 		</tr>
 	</thead>
 	<tbody>		
@@ -27,6 +29,11 @@
 			</td>
 			<td>
 			 	${p.quantity}
+			</td>
+			<td>
+			 	<a href="add-item?pcode=${p.code}">
+			 		<s:message code="label.addItem" />
+			 	</a>
 			</td>
 		</tr>
 	</c:forEach>		
