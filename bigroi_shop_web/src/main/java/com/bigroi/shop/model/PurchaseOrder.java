@@ -3,6 +3,7 @@
  */
 package com.bigroi.shop.model;
 
+import java.math.BigDecimal;
 import java.util.Date;
 
 /**
@@ -36,6 +37,8 @@ public class PurchaseOrder {
 	private int status;
 	
 	private int productQuantity;
+	
+	
 	
 	private int discount;
 	

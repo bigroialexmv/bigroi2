@@ -17,9 +17,12 @@
 	<br/>
 		Phone: ${user.phone}
 	<br/>
+	
 	<form action="user/edit">
 		<input type="hidden" name="userId" value="${user.id}">
 		<input type="submit" value="Edit"/>
 	</form>
+	
+	<a href="orders?userId=${u.id}">See all orders</a>
 </body>
 </html>

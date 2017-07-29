@@ -3,6 +3,7 @@ package com.bigroi.shop.dao.test;
 import static org.junit.Assert.*;
 
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -31,11 +32,16 @@ public class PurchaseOrderDaoImplTest {
 	@Rollback(true)
 	public void testSave() {
 		Date dateDelivery = new Date();
-		Product product = new Product (56,"MEIZU M3 Note 16GB Gray", new BigDecimal(320) );
+		List<Product> products = new ArrayList<Product>();
+		Product product1 = new Product (56,"MEIZU M3 Note 16GB Gray", new BigDecimal(320) );
+		Product product2 = new Product (63,"ZTE Blade A510 Blue", new BigDecimal(199) );
+		products.add(product1);
+		products.add(product2);
+		
 		
 		PurchaseOrder po = new PurchaseOrder(20, 4, dateDelivery);
 		try {
-			pod.save(po, product);			
+			pod.save(po, products);			
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -80,6 +86,7 @@ public class PurchaseOrderDaoImplTest {
 			fail(e.getMessage());
 		}
 	}
+	
 	@Test
 	public void testCountAll() {
 		try {
@@ -91,7 +98,19 @@ public class PurchaseOrderDaoImplTest {
 		}
 	}
 	
-
+	@Test
+	public void testFindProductsById() {
+		try {
+			List<Product> p  = pod.findPoductsById(1);
+			for(Product product : p) {
+				System.out.println(product);
+			}
+		} catch (Exception e) {			
+			e.printStackTrace();
+			fail(e.getMessage());
+		}
+	}
+	
 	@Test
 	public void testDeleteById() {
 		try {
