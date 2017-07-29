@@ -37,6 +37,19 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 		}
 	}
 	
+	protected final class ProductRowMapper implements RowMapper<Product> {
+		public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
+			Product p = new Product();
+			p.setCode(rs.getInt("CODE"));
+			p.setName(rs.getString("NAME"));
+            p.setPrice(rs.getBigDecimal("PRICE"));
+			p.setDescription(rs.getString("DESCRIPTION"));
+			p.setQuantity(rs.getInt("QUANTITY"));
+			
+			return p;
+		}
+	}
+	
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 
 	public void setNpJdbcTemplate(NamedParameterJdbcTemplate npJdbcTemplate) {
@@ -45,7 +58,7 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	
 	@Override
 	@Transactional
-	public void save(PurchaseOrder po, Product product) throws Exception {
+	public void save(PurchaseOrder po, List<Product> products) throws Exception {
 		if ( logger.isDebugEnabled() ) {
 			logger.debug("saving purchase order " + po);
 		}
@@ -72,22 +85,24 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 		Number orderId = keyHolder.getKey();		
 		po.setId(orderId.intValue());
 		
-		SqlParameterSource anotherParams = new MapSqlParameterSource()
+		for (Product p : products) {
+			    SqlParameterSource productParams = new MapSqlParameterSource()
 				.addValue("ORDER_ID", po.getId())
-				.addValue("PRODUCT_CODE", product.getCode())
+				.addValue("PRODUCT_CODE", p.getCode())
 				.addValue("PRODUCT_QUANTITY", po.getProductQuantity())
-				.addValue("PRODUCT_PRICE", product.getPrice())
+				.addValue("PRODUCT_PRICE", p.getPrice())
 				.addValue("DISCOUNT", po.getDiscount());
 			
-			npJdbcTemplate.update(purchaseOrderProductSql, anotherParams);
+			npJdbcTemplate.update(purchaseOrderProductSql, productParams);
 		
+	}
 	}
 
 	
 
 	@Override
 	public PurchaseOrder findById(Integer id) throws Exception {
-		String sql = "SELECT PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO,PO.STATUS_CD FROM PURCHASE_ORDER WHERE ORDER_ID=:ORDER_ID";
+		String sql = "SELECT PO.USER_ID, PO.ORDER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO,PO.STATUS_CD FROM PURCHASE_ORDER AS PO WHERE ORDER_ID=:ORDER_ID";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("ORDER_ID", id);
 		return npJdbcTemplate.queryForObject(sql, params, new PurchaseOrderRowMapper());
 	}
@@ -95,14 +110,14 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	@Override
 	public List<PurchaseOrder> findOrdersByUserId(Integer userId) throws Exception {
 		
-		String sql = "SELECT PO.ORDER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO,PO.STATUS_CD FROM PURCHASE_ORDER AS PO WHERE USER_ID=:USER_ID";
+		String sql = "SELECT PO.USER_ID, PO.ORDER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO,PO.STATUS_CD FROM PURCHASE_ORDER AS PO WHERE USER_ID=:USER_ID";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("USER_ID", userId);
 		return npJdbcTemplate.query(sql, params, new PurchaseOrderRowMapper());
 	}
 
 	@Override
 	public List<PurchaseOrder> findByOrderStatus(Integer status) throws Exception {
-		String sql = "SELECT PO.ORDER_ID, PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO FROM PURCHASE_ORDER AS PO WHERE PO.STATUS_CD=:STATUS_CD";
+		String sql = "SELECT PO.ORDER_ID, PO.STATUS_CD, PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO FROM PURCHASE_ORDER AS PO WHERE PO.STATUS_CD=:STATUS_CD";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("STATUS_CD", status);
 		return npJdbcTemplate.query(sql, params, new PurchaseOrderRowMapper());
 	}
@@ -114,10 +129,21 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	}
 
 	@Override
-	public void deleteById(Integer id) throws Exception {
-		String sql = "DELETE * FROM PURCHASE_ORDER WHERE ORDER_ID=:ORDER_ID";
+	public List<Product> findPoductsById (Integer id) throws Exception{
+		String sqlProduct = "SELECT POP.PRODUCT_CODE, POP.PRODUCT_PRICE, POP.PRODUCT_QUANTITY FROM PURCHASE_ORDER_PRODUCT AS POP JOIN P.NAME, P.DESCRIPTION FROM PRODUCT AS P ON PRODUCT_CODE = CODE WHERE ORDER_ID =: ORDER_ID";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("ORDER_ID", id);
-		npJdbcTemplate.update(sql, params);
+		return npJdbcTemplate.query(sqlProduct, params, new ProductRowMapper());
+	} 
+	
+	@Override
+	@Transactional
+	public void deleteById(Integer id) throws Exception {
+		String sqlPO = "DELETE FROM PURCHASE_ORDER WHERE ORDER_ID=:ORDER_ID";
+		String sqlPOP = "DELETE FROM PURCHASE_ORDER_PRODUCT WHERE ORDER_ID=:ORDER_ID";
+		SqlParameterSource paramsPO = new MapSqlParameterSource().addValue("ORDER_ID", id);
+		SqlParameterSource paramsPOP = new MapSqlParameterSource().addValue(sqlPOP, id);
+		npJdbcTemplate.update(sqlPOP, paramsPO);
+		npJdbcTemplate.update(sqlPO, paramsPOP);
 
 	}
 

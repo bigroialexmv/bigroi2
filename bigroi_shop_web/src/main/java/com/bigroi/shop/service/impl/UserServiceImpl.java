@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.UserAddressDao;
@@ -37,7 +36,7 @@ public class UserServiceImpl implements UserService {
 	@Transactional
 	public void save(User user) throws Exception {
 		userDao.save( user );
-		//userAddressDao.save( user.getAdresses() );		
+		userAddressDao.save( user.getAdresses() );		
 	}
 
 	@Override
