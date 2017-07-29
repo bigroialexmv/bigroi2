@@ -30,12 +30,14 @@ public class UsersController {
 	@Autowired
 	private UserService userService;
 	
-	@InitBinder
-	private void initBinder(WebDataBinder binder) {
-		Validator userValidator = new UserValidator();
-		logger.debug("initBinder: " + userValidator);
-		binder.setValidator(userValidator);
-	}
+//	@Autowired
+//	private UserValidator userValidator;
+	
+//	@InitBinder
+//	private void initBinder(WebDataBinder binder) {
+//		logger.debug("initBinder: " + userValidator);
+//		binder.setValidator(userValidator);
+//	}
 
 	@RequestMapping(path="/users", method = RequestMethod.GET)
 	public String showUsers(ModelMap model) throws Exception {

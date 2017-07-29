@@ -4,45 +4,45 @@
 
 <jsp:include page="../includes/header.jsp"/>
 <div class="panel panel-primary">
-	<div class="panel-heading">Edit user details</div>
+	<div class="panel-heading">Change  product</div>
 	<p/>
-	<form action="save" method="POST" class="form-horizontal">
+	<form action="save" method="POST" class="form-horizontal" style="width: 50%;">
 		
-		<s:bind path="user.firstName">
+		<s:bind path="product.name">
 		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">		
-			<label class="col-sm-2 control-label" for="firstName">First name</label>
-			<div class="col-sm-4">
-				<input id="firstName" type="text" name="firstName" value="${user.firstName}" class="form-control"/>
+			<label class="col-sm-2 control-label" for="name">name</label>
+			<div class="col-sm-10">
+				<input id="name" type="text" name="name" value="${product.name}" class="form-control"/>
 				<c:if test="${status.error}">
 					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 					<span class="help-block">
-						<sf:errors path="user.firstName"/>
+						<sf:errors path="product.name"/>
 					</span>
 				</c:if>
 			 </div>	
 		</div>
 		</s:bind>
 		
-		<s:bind path="user.lastName">
+		<s:bind path="product.price">
 		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">
-			<label class="col-sm-2 control-label" for="lastName">Last name</label>
-			<div class="col-sm-4">
-				<input type="text" name="lastName" value="${user.lastName}" class="form-control">
+			<label class="col-sm-2 control-label" for="price">Price</label>
+			<div class="col-sm-10">
+				<input type="text" name="price" value="${product.price}" class="form-control">
 				<c:if test="${status.error}">
 					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 					<span class="help-block">
-						<sf:errors path="user.lastName"/>
+						<sf:errors path="product.price"/>
 					</span>
 				</c:if>
 			</div>
 		</div>
 		</s:bind>
 		
-		<s:bind path="user.email">
+		<s:bind path="product.description">
 		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">
-			<label class="col-sm-2 control-label" for="email">Email</label>			
-			<div class="col-sm-4">				
-				<input type="text" name="email" value="${user.email}" class="form-control">
+			<label class="col-sm-2 control-label" for="description">Description</label>			
+			<div class="col-sm-10">				
+				<input type="text" name="description" value="${product.description}" class="form-control">
 				<c:if test="${status.error}">
 					<span class="glyphicon glyphicon-remove form-control-feedback"></span>					
 				</c:if>
@@ -50,25 +50,25 @@
 		</div>
 		</s:bind>
 		
-		<s:bind path="user.phone">
+		<s:bind path="product.quantity">
 		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">
-			<label class="col-sm-2 control-label" for="phone">Phone</label>
-			<div class="col-sm-4">
-				<input type="text" name="phone" value="${user.phone}" class="form-control">
+			<label class="col-sm-2 control-label" for="quantity">Quantity</label>
+			<div class="col-sm-10">
+				<input type="text" name="quantity" value="${product.quantity}" class="form-control">
 				<c:if test="${status.error}">
 					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
 					<span class="help-block">
-						<sf:errors path="user.phone"/>
+						<sf:errors path="product.quantity"/>
 					</span>
 				</c:if>
 			</div>
 		</div>
 		</s:bind>
 		
-		<input type="hidden" name="id" value="${user.id}"/>
+		<input type="hidden" name="code" value="${product.code}"/>
 		
 		<div class="btn-group">
-			<div class="col-sm-4">
+			<div class="col-sm-10">
 				<input type="submit" value="Save" class="btn btn-primary"/>
 			</div>
 		</div>

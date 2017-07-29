@@ -21,7 +21,7 @@ public class User {
 	private String email;
 	
 	@NotEmpty
-	@Size(min=1, max=40) 
+	@Size(min=10, max=40) 
 	private String phone;
 	
 	private Date created;
