@@ -11,7 +11,7 @@ public class User {
 	
 	private Integer id;
 	
-	@Size(min=1, max=10) 
+	@Size(min=1, max=60) 
 	private String firstName;
 	
 	@Size(min=1, max=100) 
