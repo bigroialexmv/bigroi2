@@ -11,10 +11,10 @@
 		</tr>
 	</thead>
 	<tbody>		
-	<c:forEach var="u" items="${products}">
+	<c:forEach var="p" items="${products}">
 		<tr>
 			<td>
-				<a href="product?code=${p.code}">${u.code}</a>
+				<a href="product?code=${p.code}">${p.code}</a>
 			</td>
 			<td>
 				${p.name}
