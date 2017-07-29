@@ -1,6 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <jsp:include page="../includes/header.jsp"/>
-shopping cart: ${shoppingCart}
 	<table class="table table-striped table-hover">
 	<thead>
 		<tr>
@@ -25,4 +24,11 @@ shopping cart: ${shoppingCart}
 	</c:forEach>		
 	</tbody>
 	</table>	
+	<form method="post" action="makeOrder">
+		<div class="btn-group">
+			<div class="col-sm-4">
+				<input type="submit" value="Make order" class="btn btn-primary"/>
+			</div>
+		</div>
+	</form>
 <jsp:include page="../includes/footer.jsp"/>

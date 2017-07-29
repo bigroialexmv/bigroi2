@@ -1,5 +1,5 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<jsp:include page="../includes/header.jsp"/>
+<jsp:include page="../../includes/header.jsp"/>
 	<table class="table table-striped table-hover">
 	<thead>
 		<tr>
@@ -32,4 +32,4 @@
 	</c:forEach>		
 	</tbody>
 	</table>	
-<jsp:include page="../includes/footer.jsp"/>
+<jsp:include page="../../includes/footer.jsp"/>

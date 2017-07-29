@@ -29,5 +29,9 @@ public class ShoppingCart {
 	public ShoppingCartItem[] getItems() {
 		return items.values().toArray(new ShoppingCartItem[0]);
 	}
+	
+	public int getItemsCount() {
+		return items.size();
+	}
 
 }

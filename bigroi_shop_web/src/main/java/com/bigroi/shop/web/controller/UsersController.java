@@ -39,12 +39,12 @@ public class UsersController {
 //		binder.setValidator(userValidator);
 //	}
 
-	@RequestMapping(path="/users", method = RequestMethod.GET)
+	@RequestMapping(path="/admin/users", method = RequestMethod.GET)
 	public String showUsers(ModelMap model) throws Exception {
 		model.addAttribute("title", "Users");
 		List<User> users = userService.findAll();
 		model.addAttribute("users", users);
-	    return "users";
+	    return "admin/users";
 	}
 	
 	@RequestMapping(path="/user", method = RequestMethod.GET)

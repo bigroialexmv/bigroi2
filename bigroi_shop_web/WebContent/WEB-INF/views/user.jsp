@@ -23,6 +23,6 @@
 		<input type="submit" value="Edit"/>
 	</form>
 	
-	<a href="orders?userId=${u.id}">See all orders</a>
+	<a href="orders?userId=${user.id}">See all orders</a>
 </body>
 </html>
