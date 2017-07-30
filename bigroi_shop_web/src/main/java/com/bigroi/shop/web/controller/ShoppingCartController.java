@@ -1,8 +1,11 @@
 package com.bigroi.shop.web.controller;
 
+import java.util.Locale;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -23,6 +26,9 @@ public class ShoppingCartController {
 	private ShoppingCart shoppingCart;
 	
 	@Autowired
+	private MessageSource messageSource;
+	
+	@Autowired
 	private PurchaseOrderService purchaseOrderService;
 	
 	@RequestMapping(path="/add-item", method = RequestMethod.GET)
@@ -34,9 +40,10 @@ public class ShoppingCartController {
 	}
 	
 	@RequestMapping(path="/shopping-cart", method = RequestMethod.GET)
-	public String showShoppingCart(ModelMap model) {
+	public String showShoppingCart(ModelMap model, Locale locale) {
 		model.addAttribute("shoppingCart", shoppingCart);
-		model.addAttribute("title", "Shopping cart");
+		String title = messageSource.getMessage("title.shoppingCart", new Object[0], locale);
+		model.addAttribute("title", title);
 		return "shoppingCart";
 	}
 	
