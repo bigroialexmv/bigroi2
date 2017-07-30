@@ -31,7 +31,11 @@ public class ShoppingCart {
 	}
 	
 	public int getItemsCount() {
-		return items.size();
+		// sum quanities for all items
+		if (items.size() == 0) {
+			return 0;
+		}
+		return items.values().stream().map(a -> a.getQuantity()).reduce((a, b) -> a + b ).get();		
 	}
 
 }
