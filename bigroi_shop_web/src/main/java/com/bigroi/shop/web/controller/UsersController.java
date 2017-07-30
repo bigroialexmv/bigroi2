@@ -1,10 +1,12 @@
 package com.bigroi.shop.web.controller;
 
 import java.util.List;
+import java.util.Locale;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -25,6 +27,9 @@ public class UsersController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	private MessageSource messageSource;
+	
 	@RequestMapping(path="/admin/users", method = RequestMethod.GET)
 	public String showUsers(ModelMap model) throws Exception {
 		model.addAttribute("title", "Users");
@@ -34,17 +39,19 @@ public class UsersController {
 	}
 	
 	@RequestMapping(path="/admin/user", method = RequestMethod.GET)
-	public String showUser(@RequestParam("userId") int userId, ModelMap model) throws Exception {
+	public String showUser(@RequestParam("userId") int userId, ModelMap model, Locale locale) throws Exception {
 		User user = userService.findUserById(userId);
-		model.addAttribute("title", "User details");
+		String title = messageSource.getMessage("title.userProfile", new Object[0], locale);
+		model.addAttribute("title", title);
 		model.addAttribute("user", user);
 	    return "admin/user";
 	}
 	
 	@RequestMapping(path="/admin/user/edit", method = RequestMethod.GET)
-	public String editUser(@RequestParam int userId, ModelMap model) throws Exception {
+	public String editUser(@RequestParam int userId, ModelMap model, Locale locale) throws Exception {
 		User user = userService.findUserById(userId);
-		model.addAttribute("title", "User details");
+		String title = messageSource.getMessage("title.userProfile", new Object[0], locale);
+		model.addAttribute("title", title);
 		model.addAttribute("user", user);
 	    return "admin/userEdit";
 	}

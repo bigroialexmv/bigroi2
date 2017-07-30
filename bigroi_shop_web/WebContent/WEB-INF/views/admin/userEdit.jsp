@@ -10,7 +10,7 @@
 		
 		<s:bind path="user.firstName">
 		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">		
-			<label class="col-sm-2 control-label" for="firstName">First name</label>
+			<label class="col-sm-2 control-label" for="firstName"><s:message code="label.firstName"/></label>
 			<div class="col-sm-4">
 				<input id="firstName" type="text" name="firstName" value="${user.firstName}" class="form-control"/>
 				<c:if test="${status.error}">
@@ -25,7 +25,7 @@
 		
 		<s:bind path="user.lastName">
 		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">
-			<label class="col-sm-2 control-label" for="lastName">Last name</label>
+			<label class="col-sm-2 control-label" for="lastName"><s:message code="label.lastName"/></label>
 			<div class="col-sm-4">
 				<input type="text" name="lastName" value="${user.lastName}" class="form-control">
 				<c:if test="${status.error}">
@@ -40,7 +40,7 @@
 		
 		<s:bind path="user.email">
 		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">
-			<label class="col-sm-2 control-label" for="email">Email</label>			
+			<label class="col-sm-2 control-label" for="email"><s:message code="label.email"/></label>			
 			<div class="col-sm-4">				
 				<input type="text" name="email" value="${user.email}" class="form-control">
 				<c:if test="${status.error}">
@@ -52,7 +52,7 @@
 		
 		<s:bind path="user.phone">
 		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">
-			<label class="col-sm-2 control-label" for="phone">Phone</label>
+			<label class="col-sm-2 control-label" for="phone"><s:message code="label.phone"/></label>
 			<div class="col-sm-4">
 				<input type="text" name="phone" value="${user.phone}" class="form-control">
 				<c:if test="${status.error}">
@@ -69,7 +69,7 @@
 		
 		<div class="btn-group">
 			<div class="col-sm-4">
-				<input type="submit" value="Save" class="btn btn-primary"/>
+				<input type="submit" value="<s:message code="label.save"/>" class="btn btn-primary"/>
 			</div>
 		</div>
 		<p/>

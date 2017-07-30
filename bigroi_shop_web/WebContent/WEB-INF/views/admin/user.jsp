@@ -1,4 +1,5 @@
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <jsp:include page="../../includes/header.jsp"/>
 
 <div class="panel panel-primary">
@@ -7,32 +8,40 @@
 	<form action="user/edit" class="form-horizontal">
 		<input type="hidden" name="userId" value="${user.id}">
   		<div class="form-group">
-   			<label class="control-label col-sm-2" for="firstName">First name</label>
+   			<label class="control-label col-sm-2" for="firstName">
+   				<s:message code="label.firstName"/>
+   			</label>
     		<div class="col-sm-4">
       			<p class="form-control-static">${user.firstName}</p>
     		</div>
   		</div>
   		<div class="form-group">
-   			<label class="control-label col-sm-2" for="lastName">Last name</label>
+   			<label class="control-label col-sm-2" for="lastName">
+   				<s:message code="label.lastName"/>
+   			</label>
     		<div class="col-sm-4">
       			<p class="form-control-static">${user.lastName}</p>
     		</div>
   		</div>
   		<div class="form-group">
-   			<label class="control-label col-sm-2" for="email">Email</label>
+   			<label class="control-label col-sm-2" for="email">
+				<s:message code="label.email"/>
+			</label>
     		<div class="col-sm-4">
       			<p class="form-control-static">${user.email}</p>
     		</div>
   		</div>
   		<div class="form-group">
-   			<label class="control-label col-sm-2" for="phone">Phone</label>
+   			<label class="control-label col-sm-2" for="phone">
+				<s:message code="label.phone"/>
+			</label>
     		<div class="col-sm-4">
       			<p class="form-control-static">${user.phone}</p>
     		</div>
   		</div>  		
   		<div class="btn-group">
 			<div class="col-sm-4">
-				<input type="submit" value="Edit" class="btn btn-primary"/>
+				<input type="submit" value="<s:message code="label.edit"/>" class="btn btn-primary"/>
 			</div>
 		</div>
 	</form>	
