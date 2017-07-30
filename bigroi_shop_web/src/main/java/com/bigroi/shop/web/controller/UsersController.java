@@ -47,32 +47,32 @@ public class UsersController {
 	    return "admin/users";
 	}
 	
-	@RequestMapping(path="/user", method = RequestMethod.GET)
+	@RequestMapping(path="/admin/user", method = RequestMethod.GET)
 	public String showUser(@RequestParam("userId") int userId, ModelMap model) throws Exception {
 		User user = userService.findUserById(userId);
 		model.addAttribute("title", "User details");
 		model.addAttribute("user", user);
-	    return "user";
+	    return "admin/user";
 	}
 	
-	@RequestMapping(path="/user/edit", method = RequestMethod.GET)
+	@RequestMapping(path="/admin/user/edit", method = RequestMethod.GET)
 	public String editUser(@RequestParam int userId, ModelMap model) throws Exception {
 		User user = userService.findUserById(userId);
 		model.addAttribute("title", "User details");
 		model.addAttribute("user", user);
-	    return "userEdit";
+	    return "admin/userEdit";
 	}
 	
-	@RequestMapping(path="/user/save", method = RequestMethod.POST)
+	@RequestMapping(path="/admin/user/save", method = RequestMethod.POST)
 	public String saveUser(@Validated User user, BindingResult bindingResult, ModelMap model) throws Exception {
 		logger.debug("Saving user:" + user);
 		if (bindingResult.hasErrors()) {
 			LogHelper.logBindingResults(logger, bindingResult);
 			model.addAttribute("title", "User details");
-			return "userEdit";
+			return "admin/userEdit";
 		}
 		userService.save(user);
-	    return "redirect:/user?userId=" + user.getId();
+	    return "redirect:/admin/user?userId=" + user.getId();
 	}
 	
 }

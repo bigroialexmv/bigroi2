@@ -2,7 +2,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
 
-<jsp:include page="../includes/header.jsp"/>
+<jsp:include page="../../includes/header.jsp"/>
 <div class="panel panel-primary">
 	<div class="panel-heading">Edit user details</div>
 	<p/>
@@ -75,4 +75,4 @@
 		<p/>
 	</form>
 </div>
-<jsp:include page="../includes/footer.jsp"/>
+<jsp:include page="../../includes/footer.jsp"/>
