@@ -15,8 +15,7 @@
 			username-parameter="username"
 			password-parameter="password" />
 		<logout logout-success-url="/login?logout" />
-		<!-- enable csrf protection -->
-		<csrf/>
+		<csrf disabled="true"/>
 	</http>
 
 	<authentication-manager>
