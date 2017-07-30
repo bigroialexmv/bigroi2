@@ -31,7 +31,7 @@ public class ShoppingCart {
 	}
 	
 	public int getItemsCount() {
-		// sum quanities for all items
+		// sum quanities of all items
 		if (items.size() == 0) {
 			return 0;
 		}

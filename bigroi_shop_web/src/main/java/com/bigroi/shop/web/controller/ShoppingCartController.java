@@ -30,7 +30,7 @@ public class ShoppingCartController {
 		logger.debug("addItem: " + productCode);
 		ShoppingCartItem item = new ShoppingCartItem(productCode);
 		shoppingCart.addShoppingItem(item);
-		return "redirect:shopping-cart";
+		return "redirect:products";
 	}
 	
 	@RequestMapping(path="/shopping-cart", method = RequestMethod.GET)

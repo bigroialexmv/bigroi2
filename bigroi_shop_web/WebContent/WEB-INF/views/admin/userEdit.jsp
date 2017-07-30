@@ -6,6 +6,8 @@
 <div class="panel panel-primary">
 	<div class="panel-heading">Edit user details</div>
 	<p/>
+	<div class="row">
+		<div class="col-md-8">
 	<form action="save" method="POST" class="form-horizontal">
 		
 		<s:bind path="user.firstName">
@@ -68,11 +70,13 @@
 		<input type="hidden" name="id" value="${user.id}"/>
 		
 		<div class="btn-group">
-			<div class="col-sm-4">
-				<input type="submit" value="<s:message code="label.save"/>" class="btn btn-primary"/>
-			</div>
+<!-- 			<div class="col-sm-4"> -->
+				<input type="submit" value="<s:message code='label.save'/>" class="btn btn-primary"/>
+<!-- 			</div> -->
 		</div>
 		<p/>
 	</form>
+		</div>
+	</div>
 </div>
 <jsp:include page="../../includes/footer.jsp"/>

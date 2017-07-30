@@ -4,7 +4,9 @@
 
 <div class="panel panel-primary">
 	<div class="panel-heading">User details</div>
-	<p/>	
+	<p/>
+	<div class="row">
+		<div class="col-md-8">
 	<form action="user/edit" class="form-horizontal">
 		<input type="hidden" name="userId" value="${user.id}">
   		<div class="form-group">
@@ -40,12 +42,22 @@
     		</div>
   		</div>  		
   		<div class="btn-group">
-			<div class="col-sm-4">
-				<input type="submit" value="<s:message code="label.edit"/>" class="btn btn-primary"/>
-			</div>
-		</div>
+<!-- 			<div class="col-sm-4"> -->
+				<input type="submit" value="<s:message code="label.edit"/>" class="btn btn-primary"/>				
+<!-- 			</div> -->
+<!-- 			<div class="col-sm-4"> -->
+				<button class="btn btn-primary" type="submit" formaction="<c:url value='/orders'/>?userId=${user.id}">
+					<s:message code="label.orders"/>						
+				</button>
+<!-- 			</div> -->
+		</div>		
 	</form>	
+		</div>
+	</div>
+<!-- 		<div class="col-md-4"> -->
+<%-- 			<a href="<c:url value='/orders'/>?userId=${user.id}">See all orders</a> --%>
+<!-- 		</div> -->
 	<p/>
-	<a href="orders?userId=${user.id}">See all orders</a>
+	
 </div>
 <jsp:include page="../../includes/footer.jsp"/>
