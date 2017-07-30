@@ -8,21 +8,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Validator;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bigroi.shop.helpers.LogHelper;
 import com.bigroi.shop.model.User;
-import com.bigroi.shop.model.validation.UserValidator;
 import com.bigroi.shop.service.UserService;
 
 @Controller
-//@RequestMapping("/users")
 public class UsersController {
 	
 	private Logger logger = LoggerFactory.getLogger(UsersController.class);
@@ -30,15 +25,6 @@ public class UsersController {
 	@Autowired
 	private UserService userService;
 	
-//	@Autowired
-//	private UserValidator userValidator;
-	
-//	@InitBinder
-//	private void initBinder(WebDataBinder binder) {
-//		logger.debug("initBinder: " + userValidator);
-//		binder.setValidator(userValidator);
-//	}
-
 	@RequestMapping(path="/admin/users", method = RequestMethod.GET)
 	public String showUsers(ModelMap model) throws Exception {
 		model.addAttribute("title", "Users");
@@ -68,7 +54,6 @@ public class UsersController {
 		logger.debug("Saving user:" + user);
 		if (bindingResult.hasErrors()) {
 			LogHelper.logBindingResults(logger, bindingResult);
-			model.addAttribute("title", "User details");
 			return "admin/userEdit";
 		}
 		userService.save(user);
