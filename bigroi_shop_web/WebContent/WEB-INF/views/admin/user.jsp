@@ -41,16 +41,12 @@
       			<p class="form-control-static">${user.phone}</p>
     		</div>
   		</div>  		
-  		<div class="btn-group">
-<!-- 			<div class="col-sm-4"> -->
+<!--   		<div class="btn-group"> -->
 				<input type="submit" value="<s:message code="label.edit"/>" class="btn btn-primary"/>				
-<!-- 			</div> -->
-<!-- 			<div class="col-sm-4"> -->
 				<button class="btn btn-primary" type="submit" formaction="<c:url value='/orders'/>?userId=${user.id}">
 					<s:message code="label.orders"/>						
-				</button>
-<!-- 			</div> -->
-		</div>		
+				</button>				
+<!-- 		</div>		 -->
 	</form>	
 		</div>
 	</div>
