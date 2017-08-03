@@ -17,6 +17,6 @@ public interface UserAddressDao {
 	
 	public void save(UserAddress adress) throws Exception;
 	
-	public void save(List<UserAddress> adresses) throws Exception;
+	public Object save(List<UserAddress> adresses) throws Exception;
 
 }

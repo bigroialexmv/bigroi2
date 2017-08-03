@@ -37,7 +37,7 @@ public class ProductController {
 	}
 
 	@RequestMapping(path="/products", method = RequestMethod.GET)
-	public String showUsers(ModelMap model1) throws Exception {
+	public String showProduct(ModelMap model1) throws Exception {
 		model1.addAttribute("title", "Products");
 		List<Product> products = productService.findAll();
 		model1.addAttribute("products", products);

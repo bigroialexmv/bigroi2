@@ -9,7 +9,7 @@ package com.bigroi.shop.model;
  */
 public class UserAddress {
 	
-	private int userId;
+	private Integer userId;
 	
 	private String streetAddr;
 	
@@ -17,7 +17,7 @@ public class UserAddress {
 	
 	private String country;
 
-	public int getUserId() {
+	public Integer getUserId() {
 		return userId;
 	}
 
@@ -48,5 +48,7 @@ public class UserAddress {
 	public void setCountry(String country) {
 		this.country = country;
 	}
+
+
 
 }
