@@ -1,6 +1,5 @@
 package com.bigroi.shop.web.controller;
 
-import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -15,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bigroi.shop.filters.Page;
+import com.bigroi.shop.filters.UserFilter;
 import com.bigroi.shop.helpers.LogHelper;
 import com.bigroi.shop.model.User;
 import com.bigroi.shop.service.UserService;
@@ -31,10 +32,11 @@ public class UsersController {
 	private MessageSource messageSource;
 	
 	@RequestMapping(path="/admin/users", method = RequestMethod.GET)
-	public String showUsers(ModelMap model) throws Exception {
+	public String showUsers(ModelMap model, UserFilter filter) throws Exception {
 		model.addAttribute("title", "Users");
-		List<User> users = userService.findAll();
-		model.addAttribute("users", users);
+		Page<UserFilter, User> usersPage = userService.findUsersPageByFilter(filter);
+		model.addAttribute("usersPage", usersPage);
+		
 	    return "admin/users";
 	}
 	

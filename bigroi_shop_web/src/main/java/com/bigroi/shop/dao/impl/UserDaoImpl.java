@@ -15,6 +15,7 @@ import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 
 import com.bigroi.shop.dao.UserDao;
+import com.bigroi.shop.filters.UserFilter;
 import com.bigroi.shop.model.User;
 
 /**
@@ -87,6 +88,20 @@ public class UserDaoImpl implements UserDao {
 	public int countAll() throws Exception {
 		String sql = "SELECT COUNT(*) FROM USER AS U ";
 		return npJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), Integer.class);
+	}
+
+	@Override
+	public List<User> findUsersByFilter(UserFilter filter) throws Exception {
+		StringBuilder sqlBuilder = new StringBuilder();
+		sqlBuilder.append(" SELECT U.USER_ID, U.FIRST_NAME, U.LAST_NAME, U.EMAIL, U.CRTD_TMS, U.UPDT_TMS, U.PHONE FROM USER AS U ");
+		if (filter != null) {
+			sqlBuilder.append(" LIMIT " + filter.getStart() + ", " + filter.getCount() );
+		}
+		String sql = sqlBuilder.toString();
+		if ( logger.isTraceEnabled() ) {
+			logger.trace(sql);
+		}
+		return npJdbcTemplate.query(sql, new UserRowMapper());		
 	}
 
 }

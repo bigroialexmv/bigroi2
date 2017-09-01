@@ -5,6 +5,7 @@ package com.bigroi.shop.dao;
 
 import java.util.List;
 
+import com.bigroi.shop.filters.UserFilter;
 import com.bigroi.shop.model.User;
 
 /**
@@ -20,5 +21,7 @@ public interface UserDao {
 	public List<User> findAll() throws Exception;
 	
 	public int countAll() throws Exception;
+	
+	public List<User> findUsersByFilter(UserFilter filter) throws Exception;
 
 }

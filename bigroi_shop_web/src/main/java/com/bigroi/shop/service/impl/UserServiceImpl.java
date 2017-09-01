@@ -8,6 +8,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.UserAddressDao;
 import com.bigroi.shop.dao.UserDao;
+import com.bigroi.shop.filters.Page;
+import com.bigroi.shop.filters.UserFilter;
 import com.bigroi.shop.model.User;
 import com.bigroi.shop.service.UserService;
 
@@ -41,14 +43,21 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int countAll() throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+		return userDao.countAll();
 	}
 
 	@Override
 	public List<User> findAll() throws Exception {
 		logger.debug("find all: " + userDao);
 		return userDao.findAll();
+	}
+
+	@Override
+	public Page<UserFilter, User> findUsersPageByFilter(UserFilter filter) throws Exception {
+		List<User> users = userDao.findUsersByFilter(filter);
+		int allUsersCount = userDao.countAll();		
+		Page<UserFilter, User> page = new Page<UserFilter, User>(filter, users, allUsersCount);
+		return page;
 	}
 
 }
