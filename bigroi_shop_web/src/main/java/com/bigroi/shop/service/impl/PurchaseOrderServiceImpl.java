@@ -6,7 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bigroi.shop.dao.PurchaseOrderDao;
-import com.bigroi.shop.model.Product;
 import com.bigroi.shop.model.PurchaseOrder;
 import com.bigroi.shop.service.PurchaseOrderService;
 
@@ -21,8 +20,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 	}
 	
 	@Override
-	public void save(PurchaseOrder po, List<Product> products) throws Exception {
-		pod.save( po, products );
+	public void save(PurchaseOrder po) throws Exception {
+		pod.save( po );
 
 	}
 
@@ -52,10 +51,6 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 		
 	}
 
-	@Override
-	public List<Product> findProductsById(Integer id) throws Exception {
-		
-		return pod.findPoductsById(id);
-	}
+	
 
 }

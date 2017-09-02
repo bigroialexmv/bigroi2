@@ -15,8 +15,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bigroi.shop.model.PurchaseOrder;
+import com.bigroi.shop.model.PurchaseOrderProduct;
 import com.bigroi.shop.model.User;
 import com.bigroi.shop.model.validation.PurchaseOrderValidator;
+import com.bigroi.shop.service.PurchaseOrderProductService;
 import com.bigroi.shop.service.PurchaseOrderService;
 import com.bigroi.shop.service.UserService;
 
@@ -33,6 +35,9 @@ public class PurchaseOrderController {
 	@Autowired
 	private UserService userService;
 	
+	@Autowired
+	PurchaseOrderProductService purchaseOrderProductService;
+	
 //	@InitBinder
 //	private void initBinder(WebDataBinder binder) {
 //		Validator purchaseOrderValidator = new PurchaseOrderValidator();
@@ -44,13 +49,20 @@ public class PurchaseOrderController {
 	public String showPurchaseOrders(@RequestParam Integer userId, ModelMap model) throws Exception {
 		User user = userService.findUserById(userId);
 		List<PurchaseOrder> orders = purchaseOrderService.findOrdersByUserId(userId);
-		model.addAttribute("title", "User orders");
+		model.addAttribute("title", "My orders");
 		model.addAttribute("user", user);
 		model.addAttribute("orders", orders);
 		return "userOrders";
 	}
 	
-	
-	
+	@RequestMapping(path = "/order", method = RequestMethod.GET)
+	public String showOrderDetails(@RequestParam Integer orderId, ModelMap model) throws Exception {
+		List<PurchaseOrderProduct> pops = purchaseOrderProductService.findPurchaseOrderPoductByOrderId(orderId);
+		PurchaseOrder po = purchaseOrderService.findById(orderId);
+		model.addAttribute("title", "Order # " + orderId);
+		model.addAttribute("order", po);
+		model.addAttribute("products", pops);
+		return "orderDetails";
+	}	
 	
 }

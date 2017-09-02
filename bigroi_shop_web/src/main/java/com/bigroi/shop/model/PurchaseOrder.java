@@ -3,8 +3,10 @@
  */
 package com.bigroi.shop.model;
 
-import java.math.BigDecimal;
+
+import java.sql.Time;
 import java.util.Date;
+import java.util.List;
 
 /**
  * @author Alexander Medvedev
@@ -18,69 +20,72 @@ public class PurchaseOrder {
 	
 	private Integer deliveryAddressId;
 	
+	private UserAddress deliveryAddress;
+	
 	private Date deliveryDate;
 	
-	private Date deliveryDateFrom;
+	private Time deliveryTimeFrom;
 	
-	private Date deliveryDateTo;
+	private Time deliveryTimeTo;
 	
-	private Date created;
-	
-	private Date updated;
-	
-	private Product product;
-	
-	private OrderStatus orderStatus;
+	private List<PurchaseOrderProduct> products;
 	
 	private String addInfo;
 	
-	private int status;
+	private int statusCode;
 	
-	private int productQuantity;
+	private Date created;
 	
-	
-	
-	private int discount;
 	
 	public PurchaseOrder( ){
 		
 	}
 	
-    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date deliveryDate) {
+    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date deliveryDate, 
+    		List<PurchaseOrderProduct> products) {
 		this.setUserId(userId);
 		this.setDeliveryAddressId(deliveryAddressId);
-		
 		this.setDeliveryDate(deliveryDate);
+		this.setPurchaseOrderProducts(products);
+				
+	}
+    
+    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date deliveryDate, 
+    		List<PurchaseOrderProduct> products, String addInfo) {
+		this.setUserId(userId);
+		this.setDeliveryAddressId(deliveryAddressId);
+		this.setDeliveryDate(deliveryDate);
+		this.setPurchaseOrderProducts(products);
+		this.setAddInfo(addInfo);
 		
 	}
     
-    public PurchaseOrder(Integer id, Integer userId, Integer deliveryAddressId, Date deliveryDate) {
+    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date deliveryDate, 
+    		List<PurchaseOrderProduct> products, Time deliveryTimeFrom,
+    		Time deliveryTimeTo) {
+		this.setUserId(userId);
+		this.setDeliveryAddressId(deliveryAddressId);
+		this.setDeliveryDate(deliveryDate);
+		this.setPurchaseOrderProducts(products);
+		this.setDeliveryTimeFrom(deliveryTimeFrom);
+		this.setDeliveryTimeTo(deliveryTimeTo);
+		
+	}
+    
+    public PurchaseOrder(Integer id, Integer userId, Integer deliveryAddressId, UserAddress deliveryAddress, Date created,
+    		Date deliveryDate, List<PurchaseOrderProduct> products, Time deliveryTimeFrom, 
+    		Time deliveryTimeTo, String addInfo) {
 		this.setId(id);
     	this.setUserId(userId);
 		this.setDeliveryAddressId(deliveryAddressId);
-		
+		this.setDeliveryAddress(deliveryAddress);
+		this.setCreated(created);
 		this.setDeliveryDate(deliveryDate);
-		
-	}
-    
-    public PurchaseOrder(Integer userId, Integer deliveryAddressId, Date deliveryDate, String addInfo) {
-		this.setUserId(userId);
-		this.setDeliveryAddressId(deliveryAddressId);
-		;
-		this.setDeliveryDate(deliveryDate);
-		
+		this.setPurchaseOrderProducts(products);
+		this.setDeliveryTimeFrom(deliveryTimeFrom);
+		this.setDeliveryTimeTo(deliveryTimeTo);
 		this.setAddInfo(addInfo);
-	}
-    
-    public PurchaseOrder(Integer id, Integer userId, Integer deliveryAddressId, Date deliveryDate, String addInfo, int status) {
-		this.setId(id);
-    	this.setUserId(userId);
-		this.setDeliveryAddressId(deliveryAddressId);
 		
-		this.setDeliveryDate(deliveryDate);
-		
-		this.setAddInfo(addInfo);
-		this.setStatus(status);
 	}
 
 	public Integer getId() {
@@ -115,20 +120,53 @@ public class PurchaseOrder {
 		this.deliveryDate = deliveryDate;
 	}
 
-	public Date getDeliveryDateFrom() {
-		return deliveryDateFrom;
+	public Time getDeliveryTimeFrom() {
+		return deliveryTimeFrom;
 	}
 
-	public void setDeliveryDateFrom(Date deliveryDateFrom) {
-		this.deliveryDateFrom = deliveryDateFrom;
+	public void setDeliveryTimeFrom(Time deliveryTimeFrom) {
+		this.deliveryTimeFrom = deliveryTimeFrom;
 	}
 
-	public Date getDeliveryDateTo() {
-		return deliveryDateTo;
+	public Time getDeliveryTimeTo() {
+		return deliveryTimeTo;
 	}
 
-	public void setDeliveryDateTo(Date deliveryDateTo) {
-		this.deliveryDateTo = deliveryDateTo;
+	public void setDeliveryTimeTo(Time deliveryTimeTo) {
+		this.deliveryTimeTo = deliveryTimeTo;
+	}
+
+	
+	public List<PurchaseOrderProduct> getPurchaseOrderProducts() {
+		return products;
+	}
+
+	public void setPurchaseOrderProducts(List<PurchaseOrderProduct> products) {
+		this.products = products;
+	}
+
+    public String getAddInfo() {
+		return addInfo;
+	}
+
+	public void setAddInfo(String addInfo) {
+		this.addInfo = addInfo;
+	}
+    
+	@Override
+	public String toString() {
+		return String.format("{id: %s, userId: %s, deliveryAddress: %s, deliveryDate: %s, products: %s,"
+				+ " addInfo: %s, }", 
+				getId(), getUserId(), getDeliveryAddressId(), getDeliveryDate(), getPurchaseOrderProducts(), getAddInfo());
+	}
+
+	
+	public int getStatusCode() {
+		return statusCode;
+	}
+
+	public void setStatusCode(int statusCode) {
+		this.statusCode = statusCode;
 	}
 
 	public Date getCreated() {
@@ -139,66 +177,12 @@ public class PurchaseOrder {
 		this.created = created;
 	}
 
-	private Date getUpdated() {
-		return updated;
+	public UserAddress getDeliveryAddress() {
+		return deliveryAddress;
 	}
 
-	private void setUpdated(Date updated) {
-		this.updated = updated;
-	}
-
-	public Product getProduct() {
-		return product;
-	}
-
-	public void setProduct(Product product) {
-		this.product = product;
-	}
-
-	public OrderStatus getOrderStatus() {
-		return orderStatus;
-	}
-
-	public void setOrderStatus(int status) {
-		orderStatus = OrderStatus.findByStatus(status);
-	}
-
-	public String getAddInfo() {
-		return addInfo;
-	}
-
-	public void setAddInfo(String addInfo) {
-		this.addInfo = addInfo;
-	}
-    
-	@Override
-	public String toString() {
-		return String.format("{id: %s, userId: %s, deliveryAddress: %s, deliveryDate: %s, product: %s, addInfo: %s}", 
-				getId(), getUserId(), getDeliveryAddressId(), getDeliveryDate(), getProduct(), getAddInfo());
-	}
-
-	public int getProductQuantity() {
-		return productQuantity;
-	}
-
-	public void setProductQuantity(int productQuantity) {
-		this.productQuantity = productQuantity;
-	}
-
-	public int getDiscount() {
-		return discount;
-	}
-
-	public void setDiscount(int discount) {
-		this.discount = discount;
-	}
-
-	public int getStatus() {
-		return status;
-	}
-
-	public void setStatus(int status) {
-		this.status = status;
+	public void setDeliveryAddress(UserAddress deliveryAddress) {
+		this.deliveryAddress = deliveryAddress;
 	}
 	
 	

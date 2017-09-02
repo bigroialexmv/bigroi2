@@ -21,11 +21,16 @@
 	<bean id="productDao" class="com.bigroi.shop.dao.impl.ProductDaoImpl">
 		<property name="npJdbcTemplate" ref="npJdbcTemplate" />
 	</bean>
+	
 	<bean id="userAddressDao" class="com.bigroi.shop.dao.impl.UserAddressDaoImpl" scope="singleton">
 		<property name="npJdbcTemplate" ref="npJdbcTemplate" />
 	</bean>
 
 	<bean id="purchaseOrderDao" class="com.bigroi.shop.dao.impl.PurchaseOrderDaoImpl">
+		<property name="npJdbcTemplate" ref="npJdbcTemplate" />
+	</bean>
+	
+	<bean id="purchaseOrderProductDao" class="com.bigroi.shop.dao.impl.PurchaseOrderProductDaoImpl">
 		<property name="npJdbcTemplate" ref="npJdbcTemplate" />
 	</bean>
 </beans>

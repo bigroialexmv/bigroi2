@@ -1,7 +1,7 @@
 package com.bigroi.shop.model;
 
 public enum OrderStatus {
-    CREATED(1), PROCESSING(2), TRANSIT(3), DELIVERED(4);
+    NEW(0), APPROVED(1), DELIVERED(2), CANCELLED(3);
 	
 	private int status;
 	

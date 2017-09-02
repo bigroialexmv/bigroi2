@@ -20,8 +20,9 @@ public class UserAddressDaoImpl implements UserAddressDao {
 	protected final class UserAddressRowMapper implements RowMapper<UserAddress> {
 		public UserAddress mapRow(ResultSet  rs3, int rowNum) throws SQLException {
 			UserAddress userAddress = new UserAddress();
-			userAddress.setUserId(rs3.getInt("USERID"));
-			userAddress.setStreetAddr(rs3.getString("STREETADDR"));
+			userAddress.setUserId(rs3.getInt("USER_ID"));
+			userAddress.setAddressId(rs3.getInt("ADDR_ID"));
+			userAddress.setStreetAddr(rs3.getString("STREET_ADDR"));
 			userAddress.setCity(rs3.getString("CITY"));
 			userAddress.setCountry(rs3.getString("COUNTRY"));			
 			return userAddress;	
@@ -36,7 +37,7 @@ public class UserAddressDaoImpl implements UserAddressDao {
 
 	@Override
 	public List<UserAddress> findByUserId(int userId) throws Exception {
-		String sql = "SELECT  USERID, STREETADDR, CITY, COUNTRY,  FROM USERADDRESS ";
+		String sql = "SELECT  USER_ID, STREET_ADDR, ADDR_ID, CITY, COUNTRY  FROM USER_ADDRESS ";
 		return npJdbcTemplate.query(sql, new UserAddressRowMapper());
 		
 	}
@@ -45,14 +46,15 @@ public class UserAddressDaoImpl implements UserAddressDao {
 	public void save(UserAddress adress) throws Exception {
 		String sql = null;
 		if (adress.getUserId() == null) {			
-			sql = "INSERT INTO USERADDRESS(USERID, STREETADDR, CITY, COUNTRY) VALUES (:USERID, :STREETADDR, :CITY, :COUNTRY)"; 
+			sql = "INSERT INTO USER_ADDRESS(USER_ID, STREET_ADDR, CITY, COUNTRY) VALUES (:USERID, :STREETADDR, :CITY, :COUNTRY)"; 
 		} else {			
-			sql = "UPDATE USERADDRESS SET  STREETADDR=:STREETADDR, CITY=:CITY, COUNTRY=:COUNTRY WHERE USERID=:USERID";
+			sql = "UPDATE USER_ADDRESS SET  STREET_ADDR=:STREET_ADDR, CITY=:CITY, COUNTRY=:COUNTRY WHERE USER_ID=:USER_ID";
 		}		
 		
 		SqlParameterSource params = new MapSqlParameterSource()
-			.addValue("USERID", adress.getUserId())
-			.addValue("STREETADDR", adress.getStreetAddr())
+			.addValue("USER_ID", adress.getUserId())
+			.addValue("ADDR_ID", adress.getAddressId())
+			.addValue("STREET_ADDR", adress.getStreetAddr())
 			.addValue("CITY", adress.getCity())
 			.addValue("COUNTRY", adress.getCountry());	
 		npJdbcTemplate.update(sql, params);	
@@ -64,19 +66,27 @@ public class UserAddressDaoImpl implements UserAddressDao {
 			
 		String sql = null;
 		if (((UserAddress) adresses).getUserId() == null) {			
-			sql = "INSERT INTO USERADDRESS(USERID, STREETADDR, CITY, COUNTRY) VALUES (:USERID, :STREETADDR, :CITY, :COUNTRY)"; 
+			sql = "INSERT INTO USER_ADDRESS(USER_ID, STREET_ADDR, CITY, COUNTRY) VALUES (:USER_ID, :STREET_ADDR, :CITY, :COUNTRY)"; 
 		} else {			
-			sql = "UPDATE USERADDRESS SET  STREETADDR=:STREETADDR, CITY=:CITY, COUNTRY=:COUNTRY WHERE USERID=:USERID";
+			sql = "UPDATE USER_ADDRESS SET  STREET_ADDR=:STREET_ADDR, CITY=:CITY, COUNTRY=:COUNTRY WHERE USER_ID=:USER_ID";
 		}		
 			
 		
 		SqlParameterSource params = new MapSqlParameterSource()
-				.addValue("USERID", ((UserAddress) adresses).getUserId())
-				.addValue("STREETADDR", ((UserAddress) adresses).getStreetAddr())
+				.addValue("USER_ID", ((UserAddress) adresses).getUserId())
+				.addValue("ADDR_ID", ((UserAddress) adresses).getAddressId())
+				.addValue("STREET_ADDR", ((UserAddress) adresses).getStreetAddr())
 				.addValue("CITY", ((UserAddress) adresses).getCity())
 				.addValue("COUNTRY", ((UserAddress) adresses).getCountry());	
 			return npJdbcTemplate.update(sql, params);	
 		
+	}
+
+	@Override
+	public UserAddress findByAddrId(int addrId) throws Exception {
+		String sql = "SELECT  USER_ID, ADDR_ID, STREET_ADDR, CITY, COUNTRY  FROM USER_ADDRESS WHERE ADDR_ID =:ADDR_ID";
+		SqlParameterSource param = new MapSqlParameterSource().addValue("ADDR_ID", addrId);
+		return npJdbcTemplate.queryForObject(sql, param, new UserAddressRowMapper());
 	}
 
 

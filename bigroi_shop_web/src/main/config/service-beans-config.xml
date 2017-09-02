@@ -31,5 +31,9 @@
 	<bean id="purchaseOrderService" class="com.bigroi.shop.service.impl.PurchaseOrderServiceImpl">
 		<property name="purchaseOrderDao" ref="purchaseOrderDao"/>		
 	</bean>
+	
+	<bean id="purchaseOrderProductService" class="com.bigroi.shop.service.impl.PurchaseOrderProductServiceImpl">
+		<property name="purchaseOrderProductDao" ref="purchaseOrderProductDao"/>		
+	</bean>
 
 </beans>

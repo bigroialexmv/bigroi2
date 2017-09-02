@@ -15,6 +15,8 @@ public interface UserAddressDao {
 	
 	public List<UserAddress> findByUserId(int userId) throws Exception;
 	
+	public UserAddress findByAddrId(int addrId) throws Exception;
+	
 	public void save(UserAddress adress) throws Exception;
 	
 	public Object save(List<UserAddress> adresses) throws Exception;
