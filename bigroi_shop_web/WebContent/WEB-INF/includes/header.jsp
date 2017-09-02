@@ -55,9 +55,19 @@
 					</a>
 					<a class="btn btn-default" href="<b:url paramName='locale' paramValue='ru' />">
 						<s:message code="label.locale.ru"/>
-					</a>						
+					</a>
 					</h3>
 				</form>
 			</div>
 		</div>
 	</div>
+	
+	<!-- for example 
+	<c:forEach items="${paramValues}" var="p">
+		Key:<c:out value="${p.key}"/> = 
+		<c:forEach items="${p.value}" var="v">
+			<c:out value="${v}"/>
+		</c:forEach>
+		<br/>
+	</c:forEach>
+	 -->
