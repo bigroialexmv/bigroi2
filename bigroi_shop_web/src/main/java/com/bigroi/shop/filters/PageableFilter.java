@@ -1,7 +1,7 @@
 package com.bigroi.shop.filters;
 
-public class PageableFilter extends Filter {
-	
+public class PageableFilter {
+
 	private static final int DEFAULT_START = 0;
 
 	private static final int DEFAULT_COUNT = 10;
@@ -9,16 +9,7 @@ public class PageableFilter extends Filter {
 	private int start = DEFAULT_START;
 	
 	private int count = DEFAULT_COUNT;
-	
-	public PageableFilter() {
-		
-	}
-	
-	public PageableFilter(int start, int count) {
-		this.start = start;
-		this.count = count;
-	}
-	
+
 	public int getStart() {
 		return start;
 	}
@@ -35,5 +26,4 @@ public class PageableFilter extends Filter {
 		this.count = count;
 	}
 	
-
 }

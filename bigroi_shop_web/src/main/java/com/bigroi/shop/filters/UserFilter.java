@@ -2,19 +2,9 @@ package com.bigroi.shop.filters;
 
 public class UserFilter extends PageableFilter {
 	
-	private String firstName;
-	
 	private String lastName;
 	
 	private String email;
-
-	public String getFirstName() {
-		return firstName;
-	}
-
-	public void setFirstName(String firstName) {
-		this.firstName = firstName;
-	}
 
 	public String getLastName() {
 		return lastName;
@@ -32,6 +22,15 @@ public class UserFilter extends PageableFilter {
 		this.email = email;
 	}
 	
-	
-	
+	public String getParams() {
+		StringBuilder paramsBuilder = new StringBuilder();
+		if (lastName != null) {
+			paramsBuilder.append("&lastName=").append(lastName);
+		}
+		if (email != null) {
+			paramsBuilder.append("&email=").append(email);
+		}
+		return paramsBuilder.toString();
+	}
+
 }

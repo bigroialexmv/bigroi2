@@ -78,7 +78,7 @@ public class UserDaoImplTest {
 			UserFilter filter = new UserFilter();
 			filter.setCount(0);
 			filter.setCount(10);
-			List<User> users = userDao.findUsersByFilter(filter);
+			List<User> users = userDao.findByFilter(filter);
 			Assert.assertTrue("Number of users exceeds expected 10", users.size() <= 10);
 			System.out.println("Users count: " + users.size());
 		} catch (Exception e) {

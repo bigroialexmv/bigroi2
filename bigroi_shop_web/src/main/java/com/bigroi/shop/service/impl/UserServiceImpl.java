@@ -43,7 +43,8 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public int countAll() throws Exception {
-		return userDao.countAll();
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
 	@Override
@@ -53,11 +54,10 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<UserFilter, User> findUsersPageByFilter(UserFilter filter) throws Exception {
-		List<User> users = userDao.findUsersByFilter(filter);
-		int allUsersCount = userDao.countAll();		
-		Page<UserFilter, User> page = new Page<UserFilter, User>(filter, users, allUsersCount);
-		return page;
+	public Page<User> findByUserFilter(UserFilter filter) throws Exception {
+		List<User> users = userDao.findByFilter(filter);
+		int totalUsersCount = userDao.countByFilter(filter);
+		return new Page<User>(users, totalUsersCount, filter);
 	}
 
 }

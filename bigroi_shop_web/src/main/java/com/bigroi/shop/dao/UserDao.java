@@ -20,8 +20,10 @@ public interface UserDao {
 	
 	public List<User> findAll() throws Exception;
 	
+	public List<User> findByFilter(UserFilter filter);
+	
 	public int countAll() throws Exception;
 	
-	public List<User> findUsersByFilter(UserFilter filter) throws Exception;
+	public int countByFilter(UserFilter filter) throws Exception;
 
 }

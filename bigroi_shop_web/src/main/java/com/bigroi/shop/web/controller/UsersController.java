@@ -1,5 +1,6 @@
 package com.bigroi.shop.web.controller;
 
+import java.util.List;
 import java.util.Locale;
 
 import org.slf4j.Logger;
@@ -33,10 +34,9 @@ public class UsersController {
 	
 	@RequestMapping(path="/admin/users", method = RequestMethod.GET)
 	public String showUsers(ModelMap model, UserFilter filter) throws Exception {
-		model.addAttribute("title", "Users");
-		Page<UserFilter, User> usersPage = userService.findUsersPageByFilter(filter);
+		model.addAttribute("title", "Users");		
+		Page<User> usersPage = userService.findByUserFilter(filter);
 		model.addAttribute("usersPage", usersPage);
-		
 	    return "admin/users";
 	}
 	

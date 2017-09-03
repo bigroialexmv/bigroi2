@@ -1,5 +1,24 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <jsp:include page="../../includes/header.jsp"/>
+
+	<form action="users" method="GET" class="form-horizontal">
+		<div class="form-group">
+			<label class="col-sm-2 control-label" for="lastName"><s:message code="label.lastName"/></label>
+			<div class="col-sm-4">
+				<input type="text" name="lastName" value="${usersPage.filter.lastName}" class="form-control">				
+			</div>
+			<label class="col-sm-2 control-label" for="email"><s:message code="label.email"/></label>
+			<div class="col-sm-4">
+				<input type="text" name="email" value="${usersPage.filter.email}" class="form-control">				
+			</div>
+		</div>	
+		<div class="btn-group">
+				<input type="submit" value="<s:message code='label.search'/>" class="btn btn-primary"/>
+		</div>
+		<p/>
+	</form>
+	
 	<table class="table table-striped table-hover">
 	<thead>
 		<tr>
@@ -32,25 +51,28 @@
 	</c:forEach>		
 	</tbody>
 	</table>
-	<nav aria-label="Users navigation">
-  		<ul class="pagination">
-    		<li class="${usersPage.hasPreviousPage() ? 'page-item' : 'page-item disabled'}">
-      			<a class="page-link" onclick="javascript:return ${usersPage.hasPreviousPage()};" href="?start=${usersPage.filter.count * (usersPage.pageIndex - 2)}&count=${usersPage.filter.count}" tabindex="-1">Previous</a>
-   			</li>
-   		<c:forEach begin="1" end="${usersPage.allPagesCount}" step="1" varStatus="loop">
-   			<li class="${loop.count == usersPage.pageIndex ? 'page-item active' : 'page-item'}">
-      			<a class="page-link" href="?start=${usersPage.filter.count * (loop.count -1)}&count=${usersPage.filter.count}">
-      				${loop.count}
-      				<c:if test="${loop.count == usersPage.pageIndex}">
-      					<span class="sr-only">(current)</span>
-      				</c:if>
-      			</a>
-    		</li>    	
-   		</c:forEach>    		
-    		<li class="${usersPage.hasNextPage() ? 'page-item' : 'page-item disabled'}">
-      			<a class="page-link" onclick="javascript:return ${usersPage.hasNextPage()};" href="?start=${usersPage.filter.count * (usersPage.pageIndex)}&count=${usersPage.filter.count}">Next</a>
-    		</li>
-  		</ul>
-	</nav>
-	(Shown ${usersPage.filter.start + 1} - ${usersPage.end} of ${usersPage.totalItemsCount} records)
+	
+	<c:set var="page" value="${usersPage}"/>
+		
+	<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li class="${page.filter.start == 0 ? 'disabled' : ''}">
+      <a onclick="javascript: return ${page.filter.start != 0};" href="users?start=${page.filter.start - page.filter.count}&count=${page.filter.count}${page.filter.params}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <c:forEach begin="1" end="${page.totalPagesCount}" varStatus="loop">
+    	<li class="${page.filter.count * (loop.index-1) == page.filter.start ? 'active' : ''}">
+    		<a href="users?start=${page.filter.count * (loop.index-1)}&count=${page.filter.count}${page.filter.params}">${loop.index}
+    		</a>
+    	</li>
+    </c:forEach>
+    <li class="${page.filter.start + page.filter.count >= page.totalItemsCount ? 'disabled' : ''}">
+      <a onclick="javascript: return ${page.filter.start + page.filter.count < page.totalItemsCount};" 
+      	href="users?start=${page.filter.start + page.filter.count}&count=${page.filter.count}${page.filter.params}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>	
 <jsp:include page="../../includes/footer.jsp"/>

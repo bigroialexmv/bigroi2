@@ -2,25 +2,21 @@ package com.bigroi.shop.filters;
 
 import java.util.List;
 
-public class Page<F extends PageableFilter, D> {
+public class Page<T> {
 	
-	private F filter;
+	private PageableFilter filter;
 	
-	private List<D> items;
+	private List<T> items;
 	
 	private int totalItemsCount;
 	
-	public Page(F filter, List<D> dataRecords, int allRecordsCount) {
+	public Page(List<T> items, int totalItemsCount, PageableFilter filter) {
+		this.items = items;
+		this.totalItemsCount = totalItemsCount;
 		this.filter = filter;
-		this.items = dataRecords;
-		this.totalItemsCount = allRecordsCount;
 	}
 
-	public F getFilter() {
-		return filter;
-	}
-
-	public List<D> getItems() {
+	public List<T> getItems() {
 		return items;
 	}
 
@@ -28,33 +24,16 @@ public class Page<F extends PageableFilter, D> {
 		return totalItemsCount;
 	}
 	
-	public int getAllPagesCount() {
-		int allPagesCount = totalItemsCount / filter.getCount();
+	public PageableFilter getFilter() {
+		return filter;
+	}
+
+	public int getTotalPagesCount() {
+		int totalPagesCount = totalItemsCount / filter.getCount();
 		if (totalItemsCount % filter.getCount() != 0) {
-			allPagesCount = allPagesCount + 1;
-		}
-		return allPagesCount;
+			totalPagesCount ++;
+		}		
+		return totalPagesCount;
 	}
-	
-	public int getEnd() {
-		int end = filter.getStart() + filter.getCount();
-		if (end < totalItemsCount) {
-			return end;
-		}
-		return totalItemsCount;
-	}
-	
-	public int getPageIndex() {
-		return filter.getStart() / filter.getCount() + 1;
-	}
-	
-	public boolean hasNextPage() {
-		return (getEnd() < totalItemsCount);		
-	}
-	
-	public boolean hasPreviousPage() {
-		return (filter.getStart() > 0);
-	}
-	
-		
+
 }

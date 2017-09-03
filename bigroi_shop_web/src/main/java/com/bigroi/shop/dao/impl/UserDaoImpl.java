@@ -91,17 +91,72 @@ public class UserDaoImpl implements UserDao {
 	}
 
 	@Override
-	public List<User> findUsersByFilter(UserFilter filter) throws Exception {
-		StringBuilder sqlBuilder = new StringBuilder();
-		sqlBuilder.append(" SELECT U.USER_ID, U.FIRST_NAME, U.LAST_NAME, U.EMAIL, U.CRTD_TMS, U.UPDT_TMS, U.PHONE FROM USER AS U ");
-		if (filter != null) {
-			sqlBuilder.append(" LIMIT " + filter.getStart() + ", " + filter.getCount() );
+	public List<User> findByFilter(UserFilter filter) {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		StringBuilder sqlb = new StringBuilder( "SELECT "
+				+ "U.USER_ID, "
+				+ "U.FIRST_NAME, "
+				+ "U.LAST_NAME, "
+				+ "U.EMAIL, "
+				+ "U.CRTD_TMS, "
+				+ "U.UPDT_TMS, "
+				+ "U.PHONE "
+				+ "FROM USER AS U ");
+		
+		StringBuilder criteriaBuilder = new StringBuilder();
+		
+		if (filter.getLastName() != null) {
+			criteriaBuilder.append(" LAST_NAME LIKE :LAST_NAME");
+			params.addValue("LAST_NAME", filter.getLastName() + "%" );
 		}
-		String sql = sqlBuilder.toString();
-		if ( logger.isTraceEnabled() ) {
-			logger.trace(sql);
+		
+		if (filter.getEmail() != null) {
+			if (criteriaBuilder.length() != 0) {
+				criteriaBuilder.append(" AND ");
+			}
+			criteriaBuilder.append(" EMAIL LIKE :EMAIL");
+			params.addValue("EMAIL", filter.getEmail() + "%" );
 		}
-		return npJdbcTemplate.query(sql, new UserRowMapper());		
+		
+		if (criteriaBuilder.length() != 0) {
+			sqlb.append(" WHERE ");
+			sqlb.append( criteriaBuilder );
+		}
+		
+		sqlb.append(" LIMIT " + filter.getStart() + ", " + filter.getCount());
+		
+		String sql = sqlb.toString();
+		logger.trace(sql);	
+		return npJdbcTemplate.query(sql, params, new UserRowMapper());
+	}
+
+	@Override
+	public int countByFilter(UserFilter filter) throws Exception {
+		MapSqlParameterSource params = new MapSqlParameterSource();
+		StringBuilder sqlb = new StringBuilder("SELECT COUNT(*) FROM USER AS U ");
+		
+		StringBuilder criteriaBuilder = new StringBuilder();
+		
+		if (filter.getLastName() != null) {
+			criteriaBuilder.append(" LAST_NAME LIKE :LAST_NAME");
+			params.addValue("LAST_NAME", filter.getLastName() + "%" );
+		}
+		
+		if (filter.getEmail() != null) {
+			if (criteriaBuilder.length() != 0) {
+				criteriaBuilder.append(" AND ");
+			}
+			criteriaBuilder.append(" EMAIL LIKE :EMAIL");
+			params.addValue("EMAIL", filter.getEmail() + "%" );
+		}
+		
+		if (criteriaBuilder.length() != 0) {
+			sqlb.append(" WHERE ");
+			sqlb.append( criteriaBuilder );
+		}
+		
+		String sql = sqlb.toString();
+		return npJdbcTemplate.queryForObject(sql, params, Integer.class);
 	}
 
 }
