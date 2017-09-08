@@ -23,7 +23,7 @@ public class PurchaseOrderProduct {
 		this.setProduct(product);
 		this.setQuantity(quantity);
 		this.setDiscount(discount);
-		setTotalPrice(discount.multiply(product.getPrice()).multiply(new BigDecimal(quantity)).divide(new BigDecimal(100)));
+		this.setTotalPrice();
 	}
 	
 	@Override
@@ -68,7 +68,11 @@ public class PurchaseOrderProduct {
 		return totalPrice;
 	}
 
-	public void setTotalPrice(BigDecimal totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setTotalPrice() {
+		if (discount.compareTo(new BigDecimal(0.00)) != 0) 
+			totalPrice = discount.multiply(product.getPrice()).multiply(new BigDecimal(quantity)).divide(new BigDecimal(100));
+		else
+			totalPrice = product.getPrice();
+		
 	}
 }

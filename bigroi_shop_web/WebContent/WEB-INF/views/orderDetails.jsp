@@ -7,7 +7,6 @@
 	<table class="table table-striped table-hover">
 	<thead>
 		<tr>
-			<th></th>
 			<th>Product</th>
 			<th>Price Per Unit</th>
 			<th>Quantity</th>

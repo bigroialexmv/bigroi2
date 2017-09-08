@@ -15,11 +15,9 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.PurchaseOrderDao;
-import com.bigroi.shop.dao.PurchaseOrderProductDao;
-import com.bigroi.shop.dao.UserAddressDao;
-import com.bigroi.shop.model.Product;
 import com.bigroi.shop.model.PurchaseOrder;
 import com.bigroi.shop.model.PurchaseOrderProduct;
+import com.bigroi.shop.model.UserAddress;
 
 public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 
@@ -28,25 +26,19 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	protected final class PurchaseOrderRowMapper implements RowMapper<PurchaseOrder> {
 		public PurchaseOrder mapRow(ResultSet rs, int rowNum) throws SQLException {
 			PurchaseOrder po = new PurchaseOrder();
-			UserAddressDao userAddress = new UserAddressDaoImpl();
-			PurchaseOrderProductDao popDao = new PurchaseOrderProductDaoImpl();
+			UserAddress userAddress = new UserAddress();
+			
 			po.setId(rs.getInt("ORDER_ID"));
 			po.setUserId(rs.getInt("USER_ID"));
 			po.setDeliveryAddressId(rs.getInt("DLRY_ADDR_ID"));
 			
-			try {
-				po.setDeliveryAddress(userAddress.findByAddrId(rs.getInt("DLRY_ADDR_ID")));
-			} catch (Exception e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}			
-
-			try {
-				po.setPurchaseOrderProducts(popDao.findPurchaseOrderPoductByOrderId(rs.getInt("ORDER_ID")));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			userAddress.setUserId(rs.getInt("USER_ID"));
+			userAddress.setAddressId(rs.getInt("ADDR_ID"));
+			userAddress.setStreetAddr(rs.getString("STREET_ADDR"));
+			userAddress.setCity(rs.getString("CITY"));
+			userAddress.setCountry(rs.getString("COUNTRY"));
+			
+			po.setDeliveryAddress(userAddress);
 			po.setCreated(rs.getDate("CRTD_TMS"));
 			po.setDeliveryDate(rs.getDate("DLRY_DATE"));
 			po.setDeliveryTimeFrom(rs.getTime("DLRY_TIME_FROM"));
@@ -57,18 +49,6 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 		}
 	}
 	
-	protected final class ProductRowMapper implements RowMapper<Product> {
-		public Product mapRow(ResultSet rs, int rowNum) throws SQLException {
-			Product p = new Product();
-			p.setCode(rs.getInt("CODE"));
-			p.setName(rs.getString("NAME"));
-            p.setPrice(rs.getBigDecimal("PRICE"));
-			p.setDescription(rs.getString("DESCRIPTION"));
-			p.setQuantity(rs.getInt("QUANTITY"));
-			
-			return p;
-		}
-	}
 	
 	private NamedParameterJdbcTemplate npJdbcTemplate;
 
@@ -123,7 +103,11 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 
 	@Override
 	public PurchaseOrder findById(Integer id) throws Exception {
-		String sql = "SELECT PO.ORDER_ID, PO.USER_ID, PO.DLRY_ADDR_ID,PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO, PO.DLRY_TIME_FROM, PO.DLRY_TIME_TO  FROM PURCHASE_ORDER AS PO WHERE ORDER_ID=:ORDER_ID";
+		String sql = "SELECT PO.ORDER_ID, PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, " 
+				+ "PO.DLRY_TIME_FROM, PO.DLRY_TIME_TO, PO.ADDL_INFO, UA.ADDR_ID, UA.STREET_ADDR, UA.CITY, UA.COUNTRY "
+				+ "FROM PURCHASE_ORDER AS PO "
+				+ "INNER JOIN  USER_ADDRESS AS UA ON PO.USER_ID = UA.USER_ID "
+				+ "WHERE ORDER_ID=:ORDER_ID";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("ORDER_ID", id);
 		return npJdbcTemplate.queryForObject(sql, params, new PurchaseOrderRowMapper());
 	}
@@ -131,14 +115,22 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	@Override
 	public List<PurchaseOrder> findOrdersByUserId(Integer userId) throws Exception {
 		
-		String sql = "SELECT PO.USER_ID, PO.ORDER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.ADDL_INFO,PO.DLRY_TIME_FROM, PO.DLRY_TIME_TO FROM PURCHASE_ORDER AS PO WHERE USER_ID=:USER_ID";
+		String sql = "SELECT PO.ORDER_ID, PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, " 
+				+ "PO.DLRY_TIME_FROM, PO.DLRY_TIME_TO, PO.ADDL_INFO, UA.ADDR_ID, UA.STREET_ADDR, UA.CITY, UA.COUNTRY "
+				+ "FROM PURCHASE_ORDER AS PO "
+				+ "INNER JOIN  USER_ADDRESS AS UA ON PO.USER_ID = UA.USER_ID "
+				+ "WHERE PO.USER_ID=:USER_ID";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("USER_ID", userId);
 		return npJdbcTemplate.query(sql, params, new PurchaseOrderRowMapper());
 	}
 
 	@Override
 	public List<PurchaseOrder> findByOrderStatus(Integer status) throws Exception {
-		String sql = "SELECT PO.ORDER_ID, PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, PO.DLRY_TIME_FROM, PO.DLRY_TIME_TO, PO.ADDL_INFO FROM PURCHASE_ORDER AS PO WHERE PO.STATUS_CD=:STATUS_CD";
+		String sql = "SELECT PO.ORDER_ID, PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, " 
+				+ "PO.DLRY_TIME_FROM, PO.DLRY_TIME_TO, PO.ADDL_INFO, UA.ADDR_ID, UA.STREET_ADDR, UA.CITY, UA.COUNTRY "
+				+ "FROM PURCHASE_ORDER AS PO "
+				+ "INNER JOIN  USER_ADDRESS AS UA ON PO.USER_ID = UA.USER_ID "
+				+ "WHERE PO.STATUS_CD=:STATUS_CD";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("STATUS_CD", status);
 		return npJdbcTemplate.query(sql, params, new PurchaseOrderRowMapper());
 	}
@@ -161,8 +153,5 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 		npJdbcTemplate.update(sqlPO, paramsPO);
 		result = true;
 		return result;
-		
-
 	}
-
 }

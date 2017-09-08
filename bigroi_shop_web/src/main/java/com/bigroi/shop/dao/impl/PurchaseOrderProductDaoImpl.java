@@ -10,7 +10,6 @@ import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import com.bigroi.shop.dao.ProductDao;
 import com.bigroi.shop.dao.PurchaseOrderProductDao;
 import com.bigroi.shop.model.Product;
 import com.bigroi.shop.model.PurchaseOrderProduct;
@@ -22,15 +21,11 @@ public class PurchaseOrderProductDaoImpl implements PurchaseOrderProductDao {
 	protected final class PurchaseOrderProductRowMapper implements RowMapper<PurchaseOrderProduct> {
 		public PurchaseOrderProduct mapRow(ResultSet rs, int rowNum) throws SQLException {
 			PurchaseOrderProduct pop = new PurchaseOrderProduct();
-			ProductDao productDao = new ProductDaoImpl();
 			Product product = new Product();
-			try {
-				product = productDao.findById(rs.getInt("PRODUCT_CODE"));
-				
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			
+			product.setCode(rs.getInt("CODE"));
+			product.setName(rs.getString("NAME"));
+			product.setPrice(rs.getBigDecimal("PRICE"));
 			pop.setProduct(product);
 			pop.setQuantity(rs.getInt("PRODUCT_QUANTITY"));
 			pop.setDiscount(rs.getBigDecimal("DISCOUNT"));
@@ -50,9 +45,9 @@ public class PurchaseOrderProductDaoImpl implements PurchaseOrderProductDao {
 
 	@Override
 	public List<PurchaseOrderProduct> findPurchaseOrderPoductByOrderId(Integer id) throws Exception {
-		String sql = "SELECT POP.PRODUCT_CODE, POP.PRODUCT_QUANTITY,"
-				+ " POP.DISCOUNT FROM PURCHASE_ORDER_PRODUCT"
-				+ " AS POP WHERE ORDER_ID=:ORDER_ID";
+		String sql = "SELECT P.CODE, P.NAME, P.PRICE, POP.PRODUCT_QUANTITY,"
+				+ " POP.DISCOUNT FROM PURCHASE_ORDER_PRODUCT AS POP INNER JOIN PRODUCT AS P ON POP.PRODUCT_CODE = P.CODE"
+				+ " WHERE POP.ORDER_ID=:ORDER_ID";
 		SqlParameterSource params = new MapSqlParameterSource().addValue("ORDER_ID", id);
 		return npJdbcTemplate.query(sql, params, new PurchaseOrderProductRowMapper());
 	}
