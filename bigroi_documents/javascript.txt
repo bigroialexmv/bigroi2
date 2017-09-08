@@ -1,0 +1,6 @@
+JavaScript Versions
+	https://www.w3schools.com/js/js_versions.asp
+
+JavaScript studies
+	https://learn.javascript.ru
+	https://developer.mozilla.org/en-US/docs/Web/JavaScript	
