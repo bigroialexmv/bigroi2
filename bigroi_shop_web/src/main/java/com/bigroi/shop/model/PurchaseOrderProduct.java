@@ -70,7 +70,7 @@ public class PurchaseOrderProduct {
 
 	public void setTotalPrice() {
 		if (discount.compareTo(new BigDecimal(0.00)) != 0) 
-			totalPrice = discount.multiply(product.getPrice()).multiply(new BigDecimal(quantity)).divide(new BigDecimal(100));
+			totalPrice = product.getPrice().subtract(discount.multiply(product.getPrice()).multiply(new BigDecimal(quantity)).divide(new BigDecimal(100)));
 		else
 			totalPrice = product.getPrice();
 		

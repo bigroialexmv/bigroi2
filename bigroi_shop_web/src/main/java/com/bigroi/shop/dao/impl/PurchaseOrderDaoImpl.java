@@ -15,6 +15,7 @@ import org.springframework.jdbc.support.KeyHolder;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.PurchaseOrderDao;
+import com.bigroi.shop.filters.PageableFilter;
 import com.bigroi.shop.model.PurchaseOrder;
 import com.bigroi.shop.model.PurchaseOrderProduct;
 import com.bigroi.shop.model.UserAddress;
@@ -113,14 +114,16 @@ public class PurchaseOrderDaoImpl implements PurchaseOrderDao {
 	}
 
 	@Override
-	public List<PurchaseOrder> findOrdersByUserId(Integer userId) throws Exception {
+	public List<PurchaseOrder> findOrdersByUserId(Integer userId, PageableFilter filter) throws Exception {
 		
 		String sql = "SELECT PO.ORDER_ID, PO.USER_ID, PO.DLRY_ADDR_ID, PO.CRTD_TMS, PO.DLRY_DATE, " 
 				+ "PO.DLRY_TIME_FROM, PO.DLRY_TIME_TO, PO.ADDL_INFO, UA.ADDR_ID, UA.STREET_ADDR, UA.CITY, UA.COUNTRY "
 				+ "FROM PURCHASE_ORDER AS PO "
 				+ "INNER JOIN  USER_ADDRESS AS UA ON PO.USER_ID = UA.USER_ID "
-				+ "WHERE PO.USER_ID=:USER_ID";
+				+ "WHERE PO.USER_ID=:USER_ID"
+				+ " LIMIT " + filter.getStart() + ", " + filter.getCount();
 		SqlParameterSource params = new MapSqlParameterSource().addValue("USER_ID", userId);
+		logger.trace(sql);
 		return npJdbcTemplate.query(sql, params, new PurchaseOrderRowMapper());
 	}
 

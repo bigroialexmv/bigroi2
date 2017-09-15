@@ -13,6 +13,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.PurchaseOrderProductDao;
+import com.bigroi.shop.filters.PageableFilter;
 import com.bigroi.shop.model.PurchaseOrderProduct;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -28,7 +29,7 @@ public class PurchaseOrderProductDaoImplTest {
 	@Rollback(true)
 	public void testFindPurchaseOrderPoductByOrderId() {
 		try {
-			List<PurchaseOrderProduct> p  = popDao.findPurchaseOrderPoductByOrderId(32);
+			List<PurchaseOrderProduct> p  = popDao.findPurchaseOrderPoductByOrderId(32, new PageableFilter());
 			for(PurchaseOrderProduct product : p) {
 				System.out.println(product);
 			}

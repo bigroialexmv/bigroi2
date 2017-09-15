@@ -16,7 +16,7 @@
 			</tr>
 	</thead>
 	<tbody>		
-	<c:forEach var="orderProduct" items="${products}">
+	<c:forEach var="orderProduct" items="${orderPage.items}">
 		<tr>
 			<td>
 				<a href="product?code=${orderProduct.product.code}">${orderProduct.product.name}</a>
@@ -52,4 +52,28 @@
 	</c:forEach>		
 	</tbody>
 	</table>	
+	
+	<c:set var="page" value="${orderPage}"/>
+		
+	<nav aria-label="Page navigation">
+  <ul class="pagination">
+    <li class="${page.filter.start == 0 ? 'disabled' : ''}">
+      <a onclick="javascript: return ${page.filter.start != 0};" href="order?start=${page.filter.start - page.filter.count}&count=${page.filter.count}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+      </a>
+    </li>
+    <c:forEach begin="1" end="${page.totalPagesCount}" varStatus="loop">
+    	<li class="${page.filter.count * (loop.index-1) == page.filter.start ? 'active' : ''}">
+    		<a href="order?start=${page.filter.count * (loop.index-1)}&count=${page.filter.count}">${loop.index}
+    		</a>
+    	</li>
+    </c:forEach>
+    <li class="${page.filter.start + page.filter.count >= page.totalItemsCount ? 'disabled' : ''}">
+      <a onclick="javascript: return ${page.filter.start + page.filter.count < page.totalItemsCount};" 
+      	href="order?start=${page.filter.start + page.filter.count}&count=${page.filter.count}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+      </a>
+    </li>
+  </ul>
+</nav>		
 <jsp:include page="../includes/footer.jsp"/>
