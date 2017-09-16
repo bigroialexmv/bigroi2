@@ -11,6 +11,7 @@ import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import com.bigroi.shop.dao.PurchaseOrderProductDao;
+import com.bigroi.shop.filters.PageableFilter;
 import com.bigroi.shop.model.Product;
 import com.bigroi.shop.model.PurchaseOrderProduct;
 
@@ -29,6 +30,7 @@ public class PurchaseOrderProductDaoImpl implements PurchaseOrderProductDao {
 			pop.setProduct(product);
 			pop.setQuantity(rs.getInt("PRODUCT_QUANTITY"));
 			pop.setDiscount(rs.getBigDecimal("DISCOUNT"));
+			pop.setTotalPrice();
 
 			return pop;
 		}
@@ -44,12 +46,20 @@ public class PurchaseOrderProductDaoImpl implements PurchaseOrderProductDao {
 	}
 
 	@Override
-	public List<PurchaseOrderProduct> findPurchaseOrderPoductByOrderId(Integer id) throws Exception {
+	public List<PurchaseOrderProduct> findPurchaseOrderPoductByOrderId(Integer id, PageableFilter filter) throws Exception {
 		String sql = "SELECT P.CODE, P.NAME, P.PRICE, POP.PRODUCT_QUANTITY,"
 				+ " POP.DISCOUNT FROM PURCHASE_ORDER_PRODUCT AS POP INNER JOIN PRODUCT AS P ON POP.PRODUCT_CODE = P.CODE"
-				+ " WHERE POP.ORDER_ID=:ORDER_ID";
+				+ " WHERE POP.ORDER_ID=:ORDER_ID"
+				+ " LIMIT " + filter.getStart() + ", " + filter.getCount();
 		SqlParameterSource params = new MapSqlParameterSource().addValue("ORDER_ID", id);
+		logger.trace(sql);
 		return npJdbcTemplate.query(sql, params, new PurchaseOrderProductRowMapper());
+	}
+	
+	@Override
+	public int countAll() throws Exception {
+		String sql = "SELECT COUNT(*) FROM PURCHASE_ORDER_PRODUCT";
+		return npJdbcTemplate.queryForObject(sql, new MapSqlParameterSource(), Integer.class);
 	}
 
 	

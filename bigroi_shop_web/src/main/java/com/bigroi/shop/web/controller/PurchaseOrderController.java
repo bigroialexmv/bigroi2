@@ -14,6 +14,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.bigroi.shop.filters.Page;
+import com.bigroi.shop.filters.PageableFilter;
 import com.bigroi.shop.model.PurchaseOrder;
 import com.bigroi.shop.model.PurchaseOrderProduct;
 import com.bigroi.shop.model.User;
@@ -46,22 +48,22 @@ public class PurchaseOrderController {
 //	}
 	
 	@RequestMapping(path = "/orders", method = RequestMethod.GET)
-	public String showPurchaseOrders(@RequestParam Integer userId, ModelMap model) throws Exception {
+	public String showPurchaseOrders(@RequestParam Integer userId, ModelMap model, PageableFilter filter) throws Exception {
 		User user = userService.findUserById(userId);
-		List<PurchaseOrder> orders = purchaseOrderService.findOrdersByUserId(userId);
+		Page<PurchaseOrder> ordersPage = purchaseOrderService.findByFilter(userId, filter);
 		model.addAttribute("title", "My orders");
 		model.addAttribute("user", user);
-		model.addAttribute("orders", orders);
+		model.addAttribute("ordersPage", ordersPage);
 		return "userOrders";
 	}
 	
 	@RequestMapping(path = "/order", method = RequestMethod.GET)
-	public String showOrderDetails(@RequestParam Integer orderId, ModelMap model) throws Exception {
-		List<PurchaseOrderProduct> pops = purchaseOrderProductService.findPurchaseOrderPoductByOrderId(orderId);
+	public String showOrderDetails(@RequestParam Integer orderId, ModelMap model, PageableFilter filter) throws Exception {
+		Page<PurchaseOrderProduct> orderPage = purchaseOrderProductService.findByFilter(orderId, filter);
 		PurchaseOrder po = purchaseOrderService.findById(orderId);
 		model.addAttribute("title", "Order # " + orderId);
 		model.addAttribute("order", po);
-		model.addAttribute("products", pops);
+		model.addAttribute("orderPage", orderPage);
 		return "orderDetails";
 	}	
 	

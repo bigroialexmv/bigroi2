@@ -6,6 +6,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.bigroi.shop.dao.PurchaseOrderDao;
+import com.bigroi.shop.filters.Page;
+import com.bigroi.shop.filters.PageableFilter;
 import com.bigroi.shop.model.PurchaseOrder;
 import com.bigroi.shop.service.PurchaseOrderService;
 
@@ -31,8 +33,8 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 	}
 
 	@Override
-	public List<PurchaseOrder> findOrdersByUserId(Integer userId) throws Exception {
-		return pod.findOrdersByUserId(userId);
+	public List<PurchaseOrder> findOrdersByUserId(Integer userId, PageableFilter filter) throws Exception {
+		return pod.findOrdersByUserId(userId, filter);
 	}
 
 	@Override
@@ -49,6 +51,13 @@ public class PurchaseOrderServiceImpl implements PurchaseOrderService {
 	public void deleteById(Integer id) throws Exception {
 		pod.deleteById(id);
 		
+	}
+
+	@Override
+	public Page<PurchaseOrder> findByFilter(Integer userId, PageableFilter filter) throws Exception {
+		List<PurchaseOrder> purchaseOrders = pod.findOrdersByUserId(userId, filter);
+		int totalPurchaseOrdersCount = pod.countAll();
+		return new Page<PurchaseOrder>(purchaseOrders, totalPurchaseOrdersCount, filter);
 	}
 
 	
