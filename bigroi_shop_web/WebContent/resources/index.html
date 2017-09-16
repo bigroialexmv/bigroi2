@@ -1,18 +1,41 @@
-<!DOCTYPE html>
+<!DOCTYPE HTML>
 <html>
 <head>
-	<meta charset="UTF-8">
-	<title>E-Shop</title>
+<title>E-Shop</title>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<link rel="stylesheet" href="/bigroi_shop_web/resources/css/main.css">
 	<link href="https://maxcdn.bootstrapcdn.com/bootswatch/3.3.7/paper/bootstrap.min.css" rel="stylesheet" integrity="sha384-awusxf8AUojygHf2+joICySzB780jVvQaVCAt1clU3QsyAitLGul28Qxb2r1e5g+" crossorigin="anonymous">
+	<!-- Optional theme -->
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+	<!-- Latest compiled and minified JavaScript -->
 	<script src="https://code.jquery.com/jquery-1.12.4.min.js" integrity="sha256-ZosEbRLbNQzLpnKIkEdrPv7lOy9C27hHQ+Xp8a4MxAQ=" crossorigin="anonymous"></script>
 	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 </head>
 <body>
-	<a href="#" onclick="javascript: showProducts(); return false;">Products</a>
-	<a href="#" onclick="javascript: showUsers(); return false;">Users</a>
-	<p id="message">
-	</p>
-	<script type="text/javascript" src="resources/js/main.js"></script>
+	
+	<div class="container">
+  	<div class="row">
+  		<div class="col">
+  			<a href="#" onclick="javascript:showUsers()">Users</a>
+  			Products
+  			<p/>
+  		</div>
+    	<div class="col">    	
+			<div id="usersPanel" class="panel panel-primary" style="display:none">
+				<div class="panel-heading">Users</div>
+				<div id="usersPanelBody" class="panel-body">				
+				</div>			
+			</div>
+		</div>
+	</div>
+	</div>
+	<script type="text/javascript">
+		// использование javascript в HTML файле
+		console.log('Hello from HTML file');
+	</script>
+<!-- 	<script type="text/javascript" src="resources/js/samples.js">		 -->
+<!-- 	</script> -->
+	<script type="text/javascript" src="resources/js/main.js">		
+	</script>
 </body>
 </html>

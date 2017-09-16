@@ -34,12 +34,12 @@
 </head>
 <body>
 	<div class="row">
-		<div class="col-md-8">
+		<div class="col-md-4">
 			<div class="page-header">
 				<h3>${title}</h3>
 			</div>
 		</div>
-		<div class="col-md-4">
+		<div class="col-md-8" style="text-align: right;">
 			<div class="page-header">
 				<form>
 					<h3>
