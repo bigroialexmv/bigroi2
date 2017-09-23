@@ -26,10 +26,11 @@ public class UserController {
 	private UserService userService;
 	
 	@RequestMapping(method=RequestMethod.GET)
-	public ResponseEntity<Page<User>> getUsers() throws Exception {
-		Page<User> usersPage = userService.findByUserFilter(new UserFilter());
+	public ResponseEntity<Page<User>> getUsers(UserFilter userFilter) throws Exception {
+		Page<User> usersPage = userService.findByUserFilter(userFilter);
 		return ResponseEntity.ok(usersPage);
-	}
+	}	
+	
 	
 	@RequestMapping(method=RequestMethod.GET, path="/{userId}")
 	public ResponseEntity<User> getUser(@PathVariable int userId) throws Exception {
