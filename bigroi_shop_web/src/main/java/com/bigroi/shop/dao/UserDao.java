@@ -26,4 +26,6 @@ public interface UserDao {
 	
 	public int countByFilter(UserFilter filter) throws Exception;
 
+	public User findByEmail(String email);
+
 }

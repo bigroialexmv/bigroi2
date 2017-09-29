@@ -87,6 +87,17 @@ public class UserDaoImpl implements UserDao {
 		} catch (EmptyResultDataAccessException e) {
 			return null;
 		}
+	}	
+
+	@Override
+	public User findByEmail(String email) {
+		String sql = "SELECT U.USER_ID, U.FIRST_NAME, U.LAST_NAME, U.EMAIL, U.CRTD_TMS, U.UPDT_TMS, U.PHONE FROM USER AS U WHERE EMAIL=:EMAIL";
+		SqlParameterSource params = new MapSqlParameterSource().addValue("EMAIL", email);
+		try {
+			return npJdbcTemplate.queryForObject(sql, params, new UserRowMapper());
+		} catch (EmptyResultDataAccessException e) {
+			return null;
+		}
 	}
 
 	@Override

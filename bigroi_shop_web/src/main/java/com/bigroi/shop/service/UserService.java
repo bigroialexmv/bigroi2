@@ -17,11 +17,13 @@ public interface UserService {
 	
 	public User findUserById(int userId) throws Exception;
 	
+	public User findUserByEmail(String email) throws Exception;
+	
 	public void save(User user) throws Exception;
 	
 	public int countAll() throws Exception;
 	
 	public List<User> findAll() throws Exception;
 	
-	public Page<User> findByUserFilter(UserFilter filter) throws Exception;
+	public Page<User> findUserPageByFilter(UserFilter filter) throws Exception;
 }

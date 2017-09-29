@@ -16,8 +16,11 @@
 	<import resource="classpath:service-config.xml" />
 	
 	<import resource="classpath:messages-config.xml" />
+	
+	<import resource="classpath:mail-sender-config.xml" />
 
 	<context:component-scan base-package="com.bigroi.shop.web.controller" />
+	<context:component-scan base-package="com.bigroi.shop.web.exception.handler" />
 
 	<bean
 		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -34,6 +37,8 @@
 	<mvc:annotation-driven />
 
 	<bean id="userValidator" class="com.bigroi.shop.model.validation.UserValidator" />
+	
+	<bean id="registrationValidator" class="com.bigroi.shop.model.validation.RegistrationValidator" />
 
 	<bean id="shoppingCart" class="com.bigroi.shop.model.ShoppingCart"
 		scope="session">

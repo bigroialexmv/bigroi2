@@ -14,14 +14,14 @@ public class UserValidator implements Validator {
 	}
 
 	@Override
-	public void validate(Object obj, Errors errors) {
-		User user = (User) obj;
-		if( user.getId() <=0 ) {
-			errors.rejectValue("id", "negativeValue", new Object[]{"'id'"}, "id can't be negative");
-		}
+	public void validate(Object target, Errors errors) {
+		System.out.println("user validator: " + target);
+		User user = (User) target;
+		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "firstName.required", "First name value is required");
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "lastName.required", "Last name is required");
-//		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "phone.required", "Phone is required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "phone", "phone.required", "Phone is required");
+		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "email.required", "Email is required");
 		
 	}
 

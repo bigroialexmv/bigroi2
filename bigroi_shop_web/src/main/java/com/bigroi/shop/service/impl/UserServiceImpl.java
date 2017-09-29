@@ -54,10 +54,15 @@ public class UserServiceImpl implements UserService {
 	}
 
 	@Override
-	public Page<User> findByUserFilter(UserFilter filter) throws Exception {
+	public Page<User> findUserPageByFilter(UserFilter filter) throws Exception {
 		List<User> users = userDao.findByFilter(filter);
 		int totalUsersCount = userDao.countByFilter(filter);
 		return new Page<User>(users, totalUsersCount, filter);
+	}
+
+	@Override
+	public User findUserByEmail(String email) throws Exception {
+		return userDao.findByEmail(email);
 	}
 
 }

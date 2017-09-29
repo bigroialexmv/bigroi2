@@ -1,6 +1,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sf" uri="http://www.springframework.org/tags/form" %>
+<%@ taglib prefix="f" tagdir="/WEB-INF/tags/form" %>
 
 <jsp:include page="../includes/header.jsp"/>
 <div class="panel panel-primary">
@@ -10,76 +11,15 @@
 		<div class="col-md-8">
 	<form action="registration" method="POST" class="form-horizontal">
 		
-		<s:bind path="user.firstName">
-		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">		
-			<label class="col-sm-2 control-label" for="firstName"><s:message code="label.firstName"/></label>
-			<div class="col-sm-4">
-				<input id="firstName" type="text" name="firstName" value="${user.firstName}" class="form-control"/>
-				<c:if test="${status.error}">
-					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-					<span class="help-block">
-						<sf:errors path="user.firstName"/>
-					</span>
-				</c:if>
-			 </div>	
-		</div>
-		</s:bind>
-		
-		<s:bind path="user.lastName">
-		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">
-			<label class="col-sm-2 control-label" for="lastName"><s:message code="label.lastName"/></label>
-			<div class="col-sm-4">
-				<input type="text" name="lastName" value="${user.lastName}" class="form-control">
-				<c:if test="${status.error}">
-					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-					<span class="help-block">
-						<sf:errors path="user.lastName"/>
-					</span>
-				</c:if>
-			</div>
-		</div>
-		</s:bind>
-		
-		<s:bind path="user.email">
-		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">
-			<label class="col-sm-2 control-label" for="email"><s:message code="label.email"/></label>			
-			<div class="col-sm-4">				
-				<input type="text" name="email" value="${user.email}" class="form-control">
-				<c:if test="${status.error}">
-					<span class="glyphicon glyphicon-remove form-control-feedback"></span>					
-				</c:if>
-			</div>
-		</div>
-		</s:bind>
-		
-		<s:bind path="user.phone">
-		<div class="form-group ${status.error ? 'has-error has-feedback' : ''}">
-			<label class="col-sm-2 control-label" for="phone"><s:message code="label.phone"/></label>
-			<div class="col-sm-4">
-				<input type="text" name="phone" value="${user.phone}" class="form-control">
-				<c:if test="${status.error}">
-					<span class="glyphicon glyphicon-remove form-control-feedback"></span>
-					<span class="help-block">
-						<sf:errors path="user.phone"/>
-					</span>
-				</c:if>
-			</div>
-		</div>
-		</s:bind>
-		
-		
-		<div class="form-group">
-			<label class="col-sm-2 control-label" for="phone">Password</label>
-			<div class="col-sm-4">
-				<input type="password" name="password" value="" class="form-control">
-			</div>
-		</div>
-		
+		<f:input name="user.firstName" value="${registration.user.firstName}" path="registration.user.firstName" type="text" id="firstName" labelCode="label.firstName"/>
+		<f:input name="user.lastName" value="${registration.user.lastName}" path="registration.user.lastName" type="text" id="lastName" labelCode="label.lastName"/>
+		<f:input name="user.email" value="${registration.user.email}" path="registration.user.email" id="email" type="text"  labelCode="label.email"/>
+		<f:input name="user.phone" value="${registration.user.phone}" path="registration.user.phone" id="phone" type="text" labelCode="label.phone"/>
+		<f:input name="password" value="${registration.password}" path="registration.password" id="password" type="text" labelCode="label.password"/>
+		<f:input name="confirmPassword" value="${registration.confirmPassword}" path="registration.confirmPassword" id="confirmPassword" type="text" labelCode="label.confirmPassword"/>
 		
 		<div class="btn-group">
-<!-- 			<div class="col-sm-4"> -->
-				<input type="submit" value="<s:message code='label.register'/>" class="btn btn-primary"/>
-<!-- 			</div> -->
+			<input type="submit" value="<s:message code='label.register'/>" class="btn btn-primary"/>
 		</div>
 		<p/>
 	</form>

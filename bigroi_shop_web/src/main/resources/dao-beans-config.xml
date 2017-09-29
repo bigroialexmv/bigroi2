@@ -33,4 +33,8 @@
 	<bean id="purchaseOrderProductDao" class="com.bigroi.shop.dao.impl.PurchaseOrderProductDaoImpl">
 		<property name="npJdbcTemplate" ref="npJdbcTemplate" />
 	</bean>
+	
+	<bean id="userCredentialsDao" class="com.bigroi.shop.dao.impl.UserCredentialsDaoImpl">		
+	</bean>
+	
 </beans>

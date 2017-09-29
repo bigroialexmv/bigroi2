@@ -35,5 +35,14 @@
 	<bean id="purchaseOrderProductService" class="com.bigroi.shop.service.impl.PurchaseOrderProductServiceImpl">
 		<property name="purchaseOrderProductDao" ref="purchaseOrderProductDao"/>		
 	</bean>
+	
+	<bean id="userRegistrationService" class="com.bigroi.shop.service.impl.UserRegistrationServiceImpl">				
+	</bean>
+	
+	<bean id="passwordEncryptionService" class="com.bigroi.shop.service.impl.PasswordEncryptionServiceImpl">				
+	</bean>
+	
+	<bean id="userCredentialsService" class="com.bigroi.shop.service.impl.UserCredentialsServiceImpl">				
+	</bean>		
 
 </beans>

@@ -27,7 +27,7 @@ public class UserController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public ResponseEntity<Page<User>> getUsers(UserFilter userFilter) throws Exception {
-		Page<User> usersPage = userService.findByUserFilter(userFilter);
+		Page<User> usersPage = userService.findUserPageByFilter(userFilter);
 		return ResponseEntity.ok(usersPage);
 	}	
 	

@@ -114,6 +114,10 @@ public class User {
 	public void setAdresses(List<UserAddress> adresses) {
 		this.adresses = adresses;
 	}
+	
+	public String getFullName() {
+		return getFirstName() + " " + getLastName();
+	}
 
 	@Override
 	public String toString() {
