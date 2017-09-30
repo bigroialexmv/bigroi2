@@ -9,7 +9,7 @@
 	<p/>
 	<div class="row">
 		<div class="col-md-8">
-			<b>You've been successfully registered. Welcome to Bigroi shop!</b>
+			<b>${message}</b>
 		</div>
 	</div>
 </div>

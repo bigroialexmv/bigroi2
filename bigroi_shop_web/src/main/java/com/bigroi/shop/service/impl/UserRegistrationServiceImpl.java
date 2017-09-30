@@ -3,6 +3,7 @@ package com.bigroi.shop.service.impl;
 import java.net.InetAddress;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.ApplicationContext;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.mail.MailSender;
@@ -39,6 +40,9 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 	
 	@Autowired
 	private MessageSource messageSource;
+	
+	@Autowired
+	private ApplicationContext appContext;
 
 	@Override
 	public void register(final UserRegistrationData registration) throws Exception {
@@ -54,7 +58,8 @@ public class UserRegistrationServiceImpl implements UserRegistrationService {
 		SimpleMailMessage message = new SimpleMailMessage();
 		message.setTo(registration.getUser().getEmail());
 		String userName = registration.getUser().getFullName();
-		String link = InetAddress.getLocalHost().getHostAddress() + "/registration/verify?token=";
+		String link = "http://" + InetAddress.getLocalHost().getHostAddress() + ":" + "8080" + "/" 
+				+ appContext.getApplicationName()  + "/registration/verify?token=" + verificationToken.getToken();
 		String messageTextTemplate = messageSource.getMessage("mail.confirmation.template", new Object[0], LocaleContextHolder.getLocale() );
 		message.setText( String.format( messageTextTemplate , userName, link) );
 		message.setSubject("Bigroi Shop registration confirmation");

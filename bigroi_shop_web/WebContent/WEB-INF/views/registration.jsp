@@ -15,8 +15,8 @@
 		<f:input name="user.lastName" value="${registration.user.lastName}" path="registration.user.lastName" type="text" id="lastName" labelCode="label.lastName"/>
 		<f:input name="user.email" value="${registration.user.email}" path="registration.user.email" id="email" type="text"  labelCode="label.email"/>
 		<f:input name="user.phone" value="${registration.user.phone}" path="registration.user.phone" id="phone" type="text" labelCode="label.phone"/>
-		<f:input name="password" value="${registration.password}" path="registration.password" id="password" type="text" labelCode="label.password"/>
-		<f:input name="confirmPassword" value="${registration.confirmPassword}" path="registration.confirmPassword" id="confirmPassword" type="text" labelCode="label.confirmPassword"/>
+		<f:input name="password" value="${registration.password}" path="registration.password" id="password" type="password" labelCode="label.password"/>
+		<f:input name="confirmPassword" value="${registration.confirmPassword}" path="registration.confirmPassword" id="confirmPassword" type="password" labelCode="label.confirmPassword"/>
 		
 		<div class="btn-group">
 			<input type="submit" value="<s:message code='label.register'/>" class="btn btn-primary"/>

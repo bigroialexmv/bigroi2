@@ -19,16 +19,18 @@ public class VerificationTokenDaoImpl implements VerificationTokenDao {
 	
 	@Override
 	public boolean deleteVerificationToken(String verificationToken) throws Exception {
-		String sql = "DELETE FROM VERIFICATION_TOKEN WHERE TOKEN = :TOKEN";
+		String sql = "DELETE FROM USER_VERIFICATION_TOKEN WHERE TOKEN = :TOKEN";
+		
 		SqlParameterSource params = new MapSqlParameterSource()
 				.addValue("TOKEN", verificationToken);
+		
 		int deleted = npJdbcTemplate.update(sql, params);
 		return (deleted == 1);
 	}
 
 	@Override
 	public Integer findUserIdByVerificationToken(String verificationToken) throws Exception {
-		String sql = "SELECT USER_ID FROM VERIFICATION_TOKEN WHERE TOKEN = :TOKEN";
+		String sql = "SELECT USER_ID FROM USER_VERIFICATION_TOKEN WHERE TOKEN = :TOKEN";
 		SqlParameterSource params = new MapSqlParameterSource()
 				.addValue("TOKEN", verificationToken);
 		return npJdbcTemplate.queryForObject(sql, params, Integer.class);

@@ -10,7 +10,7 @@ import com.bigroi.shop.model.User;
 import com.bigroi.shop.model.UserRegistrationData;
 import com.bigroi.shop.service.UserService;
 
-public class RegistrationValidator implements Validator {
+public class UserRegistrationValidator implements Validator {
 	
 	@Autowired
 	private UserValidator userValidator;

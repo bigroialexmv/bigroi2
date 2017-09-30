@@ -38,7 +38,7 @@
 
 	<bean id="userValidator" class="com.bigroi.shop.model.validation.UserValidator" />
 	
-	<bean id="registrationValidator" class="com.bigroi.shop.model.validation.RegistrationValidator" />
+	<bean id="registrationValidator" class="com.bigroi.shop.model.validation.UserRegistrationValidator" />
 
 	<bean id="shoppingCart" class="com.bigroi.shop.model.ShoppingCart"
 		scope="session">

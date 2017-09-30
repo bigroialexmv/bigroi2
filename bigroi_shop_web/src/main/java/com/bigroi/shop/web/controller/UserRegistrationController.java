@@ -12,11 +12,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.bigroi.shop.helpers.LogHelper;
-import com.bigroi.shop.model.UserRegistrationData;
 import com.bigroi.shop.model.User;
-import com.bigroi.shop.model.validation.RegistrationValidator;
+import com.bigroi.shop.model.UserRegistrationData;
+import com.bigroi.shop.model.validation.UserRegistrationValidator;
 import com.bigroi.shop.service.UserRegistrationService;
 
 @Controller
@@ -29,8 +30,8 @@ public class UserRegistrationController {
 	private UserRegistrationService userRegistrationService;
 	
 	@Autowired
-	private RegistrationValidator registrationValidator;
-	
+	private UserRegistrationValidator registrationValidator;	
+
 	@InitBinder
 	private void initBinder(WebDataBinder binder) {
 		binder.addValidators(registrationValidator);
@@ -38,18 +39,26 @@ public class UserRegistrationController {
 	
 	@RequestMapping(method=RequestMethod.GET)
 	public String showRegistration(Model model) {
-		model.addAttribute("registration", new UserRegistrationData(new User()));		
+		model.addAttribute("registration", new UserRegistrationData(new User()));
 		return "registration";
 	}
 	
 	@RequestMapping(method=RequestMethod.POST)
-	public String register(@Validated @ModelAttribute("registration") UserRegistrationData registration, BindingResult bindingResult) throws Exception {
+	public String register(@Validated @ModelAttribute("registration") UserRegistrationData registration, BindingResult bindingResult, Model model) throws Exception {
 		logger.info("Regestering user: " + registration.getUser());		
 		if (bindingResult.hasErrors()) {
 			LogHelper.logBindingResults(logger, bindingResult);
 			return "registration";
 		}
+		model.addAttribute("message", "You've been successfully registered");
 		userRegistrationService.register(registration);
+		return "registration-success";
+	}
+	
+	@RequestMapping(path="/verify", method=RequestMethod.GET)
+	public String confirm(@RequestParam("token") String verificationToken, Model model) throws Exception {
+		userRegistrationService.confirm(verificationToken);
+		model.addAttribute("message", "Your account has been activated");
 		return "registration-success";
 	}
 	

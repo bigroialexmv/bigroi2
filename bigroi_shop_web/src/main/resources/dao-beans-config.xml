@@ -37,4 +37,8 @@
 	<bean id="userCredentialsDao" class="com.bigroi.shop.dao.impl.UserCredentialsDaoImpl">		
 	</bean>
 	
+	<bean id="verificationTokenDao" class="com.bigroi.shop.dao.impl.VerificationTokenDaoImpl">		
+	</bean>
+	
+	
 </beans>
