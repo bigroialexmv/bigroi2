@@ -19,7 +19,7 @@
 		  <table>
 			<tr>
 				<td>Email</td>
-				<td><input type='text' name='username' value=''></td>
+				<td><input type='text' name='email' value=''></td>
 			</tr>
 			<tr>
 				<td>Password</td>
@@ -31,8 +31,8 @@
 			</tr>
 		  </table>
 
-		  <input type="hidden" name="${_csrf.parameterName}"
-			value="${_csrf.token}" />
+<%-- 		  <input type="hidden" name="${_csrf.parameterName}" --%>
+<%-- 			value="${_csrf.token}" /> --%>
 
 		</form>
 </div>

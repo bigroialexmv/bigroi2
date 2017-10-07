@@ -10,12 +10,13 @@
 	http://www.springframework.org/schema/security/spring-security-4.2.xsd">
 
 	<http auto-config="true" use-expressions="true">
-		<intercept-url pattern="/users/**" access="hasRole('ROLE_ADMIN')" />
-		<intercept-url  pattern="/user/{userId}/**" access="isAuthenticated() and @userWebSecurity.canEditProfile(authentication, #userId)"/>
+<!-- 		<intercept-url pattern="/users/**" access="hasRole('ROLE_ADMIN')" /> -->
+		<intercept-url pattern="/user/{userId}/**" access="@userWebSecurity.canEditProfile(authentication, #userId)"/>
+<!-- 		<intercept-url pattern="/user/{userId}/**" access="isAuthenticated() and @userWebSecurity.canEditProfile(authentication, #userId)"/> -->
 		<form-login
 		    login-page="/login"
 		    default-target-url="/products"
-			username-parameter="username"
+			username-parameter="email"
 			password-parameter="password" />
 		<logout logout-success-url="/login?logout" />
 		<csrf disabled="true"/>

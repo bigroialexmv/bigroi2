@@ -16,7 +16,7 @@
 			<s:message code="${labelCode}" />
 		</label>
 		<div class="col-sm-4">
-			<input id="firstName" type="text" name="${name}"
+			<input id="${id}" type="${type}" name="${name}"
 				value="${value}" class="form-control" />
 			<c:if test="${status.error}">
 				<span class="glyphicon glyphicon-remove form-control-feedback"></span>

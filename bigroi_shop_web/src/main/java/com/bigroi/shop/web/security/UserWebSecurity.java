@@ -18,7 +18,7 @@ public class UserWebSecurity {
 			logger.error("Failed to obtain principal");
 			return false;
 		}
-		User user = (User) authentication.getPrincipal();
+		User user = (User) principal;
 		return (user.getId() != null) && (user.getId() == userId); 
 	}
 

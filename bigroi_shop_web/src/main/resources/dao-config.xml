@@ -38,6 +38,8 @@
 	 -->
 	<import resource="classpath:dao-jdbc-tx-config.xml" />
 	
+	<import resource="classpath:dao-jpa-hbm-config.xml" />
+	
 	<!-- (4)
 		импортируем файл dao-beans-config c DAO-бинами: userDao, productDao и т.д.
 	 -->	

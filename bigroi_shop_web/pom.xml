@@ -11,6 +11,7 @@
   	<org.springframework-version>4.3.8.RELEASE</org.springframework-version>
   	<commons-dbcp-version>1.4</commons-dbcp-version>
   	<mysql-connector-java-version>5.1.39</mysql-connector-java-version>
+  	<org.hibernate-version>4.3.0.Final</org.hibernate-version>
   </properties>
   
   <dependencies>  
@@ -27,7 +28,36 @@
 		<groupId>org.hibernate</groupId>
 		<artifactId>hibernate-validator</artifactId>
 		<version>4.3.0.Final</version>
-	</dependency>		
+	</dependency>
+	
+	<dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-core</artifactId>
+        <version>${org.hibernate-version}</version>
+    </dependency>
+    
+    <dependency>
+        <groupId>org.hibernate.common</groupId>
+        <artifactId>hibernate-commons-annotations</artifactId>
+        <version>4.0.2.Final</version>
+        <classifier>tests</classifier>
+    </dependency>
+     
+    <dependency>
+        <groupId>org.hibernate.javax.persistence</groupId>
+        <artifactId>hibernate-jpa-2.0-api</artifactId>
+        <version>1.0.1.Final</version>
+    </dependency>
+    <dependency>
+        <groupId>org.hibernate</groupId>
+        <artifactId>hibernate-entitymanager</artifactId>
+        <version>${org.hibernate-version}</version>
+    </dependency>
+    <dependency>
+        <groupId>org.springframework</groupId>
+        <artifactId>spring-orm</artifactId>
+        <version>${org.springframework-version}</version>
+    </dependency>		
 	
   	<dependency>
     	<groupId>org.springframework</groupId>

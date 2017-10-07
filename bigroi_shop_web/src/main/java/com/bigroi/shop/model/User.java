@@ -3,31 +3,49 @@ package com.bigroi.shop.model;
 import java.util.Date;
 import java.util.List;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+import javax.persistence.Transient;
 import javax.validation.constraints.Size;
 
 import org.hibernate.validator.constraints.NotEmpty;
 
+@Entity
+@Table(name="USER")
 public class User {
 	
+	@Id
+	@Column(name="USER_ID")
+	@GeneratedValue
 	private Integer id;
 	
-	@Size(min=1, max=60) 
+	@Size(min=1, max=60)
+	@Column(name="FIRST_NAME", columnDefinition="char(60)")
 	private String firstName;
 	
-	@Size(min=1, max=100) 
+	@Size(min=1, max=100)
+	@Column(name="LAST_NAME", columnDefinition="char(60)")
 	private String lastName;
 	
-	@Size(min=1, max=250) 
+	@Size(min=1, max=250)
+	@Column(name="EMAIL", columnDefinition="char(256)")	
 	private String email;
 	
 	@NotEmpty
-	@Size(min=10, max=40) 
+	@Size(min=10, max=40)
+	@Column(name="PHONE")
 	private String phone;
 	
+	@Transient
 	private Date created;
 	
+	@Transient
 	private Date updated;
 	
+	@Transient
 	private List<UserAddress> adresses;
 	
 	public User() {

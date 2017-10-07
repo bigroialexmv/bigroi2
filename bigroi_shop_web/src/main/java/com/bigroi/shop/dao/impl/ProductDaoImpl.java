@@ -44,7 +44,7 @@ public class ProductDaoImpl implements ProductDao {
 
 	@Override
 	public List<Product> findAll() throws Exception {
-		String sql = "SELECT  CODE, NAME, PRICE, DESCRIPTION, QUANTITY FROM PRODUCT ";
+		String sql = "SELECT  CODE, NAME, PRICE, DESCRIPTION, QUANTITY FROM PRODUCT +";
 		return npJdbcTemplate.query(sql, new ProductRowMapper());
 	}
 

@@ -20,12 +20,13 @@ public class UserRegistrationValidator implements Validator {
 
 	@Override
 	public boolean supports(Class<?> clazz) {
-		return UserRegistrationData.class.equals(clazz);
+		boolean isSupported = UserRegistrationData.class.equals(clazz);
+		return isSupported;
 	}
 
 	@Override
 	public void validate(Object target, Errors errors) {
-		System.out.println("registration validator: " + target);
+		
 		UserRegistrationData registration = (UserRegistrationData)target;
 		
 		ValidationUtils.rejectIfEmptyOrWhitespace(errors, "password", "password.required", "Password is required");
@@ -39,7 +40,6 @@ public class UserRegistrationValidator implements Validator {
 		
 		errors.pushNestedPath("user");
 		ValidationUtils.invokeValidator(userValidator, registration.getUser(), errors);
-		
 		rejectIfEmailExist(registration, errors);
 		
 		errors.popNestedPath();
