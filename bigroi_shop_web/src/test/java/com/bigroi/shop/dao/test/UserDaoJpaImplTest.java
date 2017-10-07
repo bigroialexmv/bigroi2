@@ -4,6 +4,7 @@ import static org.junit.Assert.*;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.bigroi.shop.dao.UserDao;
 import com.bigroi.shop.filters.UserFilter;
 import com.bigroi.shop.model.User;
+import com.bigroi.shop.model.UserAddress;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath*:/dao-config.xml")
@@ -26,6 +28,7 @@ public class UserDaoJpaImplTest {
 	
 	@Test
 	@Transactional
+	@Ignore
 //	@Rollback(true)
 	public void testSave() {
 		User user = new User("Test first name", "Test last name", "test@email.by", "+375294444444");
@@ -40,8 +43,14 @@ public class UserDaoJpaImplTest {
 	@Test
 	public void testFindById() {
 		try {
-			User user = userDao.findById(155);
+			System.out.println("-- findById");
+			User user = userDao.findById(20);
 			System.out.println(user);
+			for(UserAddress address : user.getAdresses()) {
+				System.out.println(address);
+			}
+			System.out.println("-- end of findById");
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 			fail(e.getMessage());
@@ -49,6 +58,7 @@ public class UserDaoJpaImplTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testFindAll() {
 		try {
 			List<User> users = userDao.findAll();
@@ -61,6 +71,7 @@ public class UserDaoJpaImplTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testFindByEmail() {
 		try {
 			User user = userDao.findByEmail("risus@malesuadafringilla.co.uk");
@@ -72,6 +83,7 @@ public class UserDaoJpaImplTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testFindByFilter() {
 		try {
 			System.out.println(" -- Find by filter: ");
@@ -93,6 +105,7 @@ public class UserDaoJpaImplTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testFindByFilterWithNulls() {
 		try {
 			System.out.println(" -- Find by nulls: ");
@@ -107,6 +120,7 @@ public class UserDaoJpaImplTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testCountAll() {
 		try {
 			int count = userDao.countAll();
