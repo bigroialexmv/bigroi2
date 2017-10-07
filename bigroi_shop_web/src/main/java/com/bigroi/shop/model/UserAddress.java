@@ -3,20 +3,36 @@
  */
 package com.bigroi.shop.model;
 
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
 /**
  * @author Alexander Medvedev
  *
  */
+@Entity
+@Table(name="USER_ADDRESS")
 public class UserAddress {
 	
+	@Column(name="USER_ID")
 	private Integer userId;
 	
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(name="ADDR_ID")
 	private Integer addressId;
 	
+	@Column(name="STREET_ADDR", columnDefinition="varchar(400)")	
 	private String streetAddr;
 	
+	@Column(columnDefinition="char(255)")
 	private String city;
 	
+	@Column(columnDefinition="text")
 	private String country;
 	
 	public UserAddress() {

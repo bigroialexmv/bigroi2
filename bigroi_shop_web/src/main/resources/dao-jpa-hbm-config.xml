@@ -18,14 +18,21 @@
       </property>
       <property name="jpaProperties">
          <props>
+         	<prop key="hibernate.show_sql">true</prop>
+			<prop key="hibernate.format_sql">true</prop>
             <prop key="hibernate.hbm2ddl.auto">validate</prop>
             <prop key="hibernate.dialect">org.hibernate.dialect.MySQL5Dialect</prop>
          </props>
       </property>
    </bean>
    
-   <bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+   <bean id="jpaTransactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">
       <property name="entityManagerFactory" ref="entityManagerFactoryBean" />
    </bean>
-
+   
+   <tx:annotation-driven transaction-manager="transactionManager"/>
+   
+   <bean id="persistenceExceptionTranslationPostProcessor"
+      class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />
+ 
 </beans>

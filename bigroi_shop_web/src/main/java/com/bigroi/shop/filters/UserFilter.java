@@ -5,6 +5,21 @@ public class UserFilter extends PageableFilter {
 	private String lastName;
 	
 	private String email;
+	
+	public UserFilter() {
+		
+	}
+	
+	public UserFilter(String lastName) {
+		super();
+		this.lastName = lastName;
+	}
+
+	public UserFilter(String lastName, String email) {
+		super();
+		this.lastName = lastName;
+		this.email = email;
+	}
 
 	public String getLastName() {
 		return lastName;

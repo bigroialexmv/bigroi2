@@ -7,6 +7,9 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 import javax.validation.constraints.Size;
@@ -45,7 +48,8 @@ public class User {
 	@Transient
 	private Date updated;
 	
-	@Transient
+	@OneToMany
+	@JoinColumn(name="USER_ID")
 	private List<UserAddress> adresses;
 	
 	public User() {
