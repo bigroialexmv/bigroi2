@@ -36,7 +36,7 @@
 	<!-- (3)
 		импортируем файл dao-jdbc-tx-config.xml c бином npJdbcTemplate
 	 -->
-	<import resource="classpath:dao-jdbc-tx-config.xml" />
+	<import resource="classpath:dao-jdbc-config.xml" />
 	
 	<import resource="classpath:dao-jpa-hbm-config.xml" />
 	

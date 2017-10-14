@@ -1,6 +1,6 @@
 package com.bigroi.shop.dao.test;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.fail;
 
 import java.util.List;
 
@@ -11,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.annotation.Rollback;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.bigroi.shop.dao.UserDao;
@@ -20,7 +19,7 @@ import com.bigroi.shop.model.User;
 import com.bigroi.shop.model.UserAddress;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(locations="classpath*:/dao-config.xml")
+@ContextConfiguration(locations={"classpath*:/dao-config.xml", "classpath*:/aop-config.xml"})
 public class UserDaoJpaImplTest {
 
 	@Autowired
@@ -28,10 +27,9 @@ public class UserDaoJpaImplTest {
 	
 	@Test
 	@Transactional
-	@Ignore
-//	@Rollback(true)
+	@Rollback(true)
 	public void testSave() {
-		User user = new User("Test first name", "Test last name", "test@email.by", "+375294444444");
+		User user = new User("Test first name", "Test last name", "test-jpa@email.by", "+375294444444");
 		try {
 			userDao.save(user);			
 		} catch (Exception e) {
@@ -41,6 +39,7 @@ public class UserDaoJpaImplTest {
 	}
 	
 	@Test
+	@Ignore
 	public void testFindById() {
 		try {
 			System.out.println("-- findById");

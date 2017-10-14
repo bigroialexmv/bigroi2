@@ -49,7 +49,7 @@ public class User {
 	@Transient
 	private Date updated;
 	
-	@OneToMany(fetch=FetchType.EAGER)
+	@OneToMany(fetch=FetchType.LAZY)
 	@JoinColumn(name="USER_ID")
 	private List<UserAddress> adresses;
 	

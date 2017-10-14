@@ -31,7 +31,7 @@
       <property name="entityManagerFactory" ref="entityManagerFactoryBean" />
    </bean>
    
-   <tx:annotation-driven transaction-manager="transactionManager"/>
+   <tx:annotation-driven transaction-manager="jpaTransactionManager"/>
    
    <bean id="persistenceExceptionTranslationPostProcessor"
       class="org.springframework.dao.annotation.PersistenceExceptionTranslationPostProcessor" />

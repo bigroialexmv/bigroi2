@@ -41,6 +41,7 @@ public class UserDaoJpaImpl implements UserDao {
 		return users;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> findByFilter(UserFilter filter) {
 		CriteriaQuery<?> cq = buildCriteriaByFilter(filter);
