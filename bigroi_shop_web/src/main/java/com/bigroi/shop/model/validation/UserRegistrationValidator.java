@@ -40,7 +40,7 @@ public class UserRegistrationValidator implements Validator {
 		
 		errors.pushNestedPath("user");
 		ValidationUtils.invokeValidator(userValidator, registration.getUser(), errors);
-		rejectIfEmailExist(registration, errors);
+		// rejectIfEmailExist(registration, errors);
 		
 		errors.popNestedPath();
 		
