@@ -59,6 +59,8 @@ public class ProductDaoImplTest {
 		Product product = new Product( 42, "Test sony", 1, "Test description", 1);
 				
 		try{
+			productDao.save(product);
+			product = new Product( null, "Test sony", 1, "Test description", 1);
 			productDao.save(product);			
 		} catch (Exception e) {
 			e.printStackTrace();

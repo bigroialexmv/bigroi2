@@ -56,7 +56,7 @@ public class CalculatorTest { // Test case
 
 		int result = calculator.sum(2, 3);		
 		
-		assertEquals(6, result);		
+		assertEquals(5, result);		
 	}
 	
 	

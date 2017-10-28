@@ -4,6 +4,7 @@ import static org.junit.Assert.fail;
 
 import java.util.List;
 
+import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,6 +17,7 @@ import com.bigroi.shop.dao.PurchaseOrderProductDao;
 import com.bigroi.shop.filters.PageableFilter;
 import com.bigroi.shop.model.PurchaseOrderProduct;
 
+@Ignore
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations="classpath*:/dao-config.xml")
 
