@@ -22,9 +22,6 @@ public class Product {
 	 */
 	public Product(Integer code, String name, BigDecimal price) {
 		super();
-		if ( code == null ) {
-			throw new IllegalArgumentException("code must not be null");
-		}
 		if ( name == null ) {
 			throw new IllegalArgumentException("name must not be null");
 		}
